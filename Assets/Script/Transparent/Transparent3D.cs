@@ -44,7 +44,7 @@ public class Transparent3D : MonoBehaviour
     private int layerMask;
 
     /// ////////////////// /// ////////////////// /// ////////////////// /// ////////////////// /// //////////////////
-    public bool clickthruogh;
+    public bool clickthrough;
 
 
     private void Start()
@@ -140,7 +140,7 @@ public class Transparent3D : MonoBehaviour
         }
 
         SetClickthrough(!isOverUI);
-        clickthruogh = isOverUI;
+        clickthrough = isOverUI;
     }
 
     private void SetClickthrough(bool clickthrough)
