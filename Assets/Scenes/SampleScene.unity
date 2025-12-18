@@ -1019,6 +1019,7 @@ GameObject:
   - component: {fileID: 930662586}
   - component: {fileID: 930662585}
   - component: {fileID: 930662587}
+  - component: {fileID: 930662588}
   m_Layer: 5
   m_Name: Setting
   m_TagString: Untagged
@@ -1139,6 +1140,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!65 &930662588
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930662583}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 100.91767, y: 98.06667, z: 2.112697}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &975478822
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,6 +1270,7 @@ GameObject:
   - component: {fileID: 993250413}
   - component: {fileID: 993250412}
   - component: {fileID: 993250414}
+  - component: {fileID: 993250415}
   m_Layer: 5
   m_Name: CloseSetting
   m_TagString: Untagged
@@ -1368,6 +1391,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!65 &993250415
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993250410}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 40.480263, y: 40.881836, z: 2.112697}
+  m_Center: {x: -19.588987, y: -20.19674, z: 0}
 --- !u!1 &1165713405
 GameObject:
   m_ObjectHideFlags: 0
@@ -1754,7 +1798,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1526597704
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1900,6 +1944,7 @@ GameObject:
   - component: {fileID: 1960481082}
   - component: {fileID: 1960481084}
   - component: {fileID: 1960481083}
+  - component: {fileID: 1960481085}
   m_Layer: 5
   m_Name: Exit
   m_TagString: Untagged
@@ -1964,6 +2009,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1960481081}
   m_CullTransparentMesh: 1
+--- !u!65 &1960481085
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960481081}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 100.91767, y: 98.06667, z: 2.112697}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &98124575604306335
 PrefabInstance:
   m_ObjectHideFlags: 0
