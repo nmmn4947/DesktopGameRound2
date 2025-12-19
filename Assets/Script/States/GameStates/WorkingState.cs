@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class WorkingState : GameStateBase
 {
-    WorkingState()
+    public WorkingState()
     { StateType = GameStateType.eWorking; }
     
     public override void Enter()

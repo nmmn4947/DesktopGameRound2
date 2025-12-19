@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class WorkingInteractionState : CharacterStateBase
 {
-    WorkingInteractionState()
+    public WorkingInteractionState()
     { StateType = CharacterStateType.eWorkingInteraction; }
     
     public override void Enter()

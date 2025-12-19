@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class RestingState : GameStateBase
 {
-    RestingState()
+    public RestingState()
     { StateType = GameStateType.eResting; }
     
     public override void Enter()

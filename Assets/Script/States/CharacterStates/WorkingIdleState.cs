@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class WorkingIdleState : CharacterStateBase
 {
-    WorkingIdleState()
+    public WorkingIdleState()
     { StateType = CharacterStateType.eWorkingIdle; }
     
     public override void Enter()

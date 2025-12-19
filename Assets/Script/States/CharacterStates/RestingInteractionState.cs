@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class RestingInteractionState : CharacterStateBase
 {
-    RestingInteractionState()
+    public RestingInteractionState()
     { StateType = CharacterStateType.eRestingInteraction; }
     
     public override void Enter()
