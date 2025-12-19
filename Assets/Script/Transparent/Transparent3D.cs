@@ -44,8 +44,18 @@ public class Transparent3D : MonoBehaviour
     private int layerMask;
 
     /// ////////////////// /// ////////////////// /// ////////////////// /// ////////////////// /// //////////////////
-    public bool clickthrough;
+    public bool isTabOff = false;
+    
+    public static Transparent3D instance;
 
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        instance = this;
+    }
 
     private void Start()
     {
@@ -140,7 +150,6 @@ public class Transparent3D : MonoBehaviour
         }
 
         SetClickthrough(!isOverUI);
-        clickthrough = isOverUI;
     }
 
     private void SetClickthrough(bool clickthrough)
@@ -153,5 +162,10 @@ public class Transparent3D : MonoBehaviour
         {
             SetWindowLong(hWnd, GWL_EXSTYLE, WS_EX_LAYERED);
         }
+    }
+    
+    void OnApplicationFocus(bool hasFocus)
+    {
+        isTabOff = !hasFocus;
     }
 }
