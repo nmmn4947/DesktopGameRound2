@@ -6,17 +6,24 @@ public class UIManager : MonoBehaviour
     
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject toolsUI;
-    [SerializeField] private float fadeTime;
+    [SerializeField] private GameObject settingsButtons;
+    [SerializeField] private float fadeTimeTabOff;
+    [SerializeField] private float fadeTimeToolSelect;
     [SerializeField] private List<BoxCollider> AllUIButtons = new List<BoxCollider>();
-
-    private float fadeTimeTrack = 0.0f;
-    private CanvasGroup canvasGroup;
-    private bool changeFadeStyle = false;
+    [SerializeField] private CursorTool cursorTool;
     
+    private CanvasGroup canvasGroup;
+    private float allUIFadeTrack = 0.0f;
+    private bool allUIFadeState = false;
+    private float someUIFadeTrack = 0.0f;
+    private bool someUIFadeState = false;
+    List<GameObject> DisabledWhenToolIsSelected = new List<GameObject>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        
+        DisabledWhenToolIsSelected.Add(settingsButtons);
     }
 
     // Update is called once per frame
@@ -24,15 +31,25 @@ public class UIManager : MonoBehaviour
     {
         if (Transparent3D.instance.isTabOff)
         {
-            UIFadeIn(false);
+            AllUIFadeIn(false);
         }
         else
         {
-            UIFadeIn(true);
+            if (cursorTool.GetIfToolIsSelected())
+            {
+                SOMEUIFadeIn(false, DisabledWhenToolIsSelected); // IMMA REWRITE THIS OMG IT IS NOT WORKING
+            }
+            else
+            {
+                SOMEUIFadeIn(true, DisabledWhenToolIsSelected);
+                AllUIFadeIn(true);
+            }
         }
+
+
     }
 
-    void HandleEnablingUIButtons(bool enableUI)
+    void HandleEnablingAllUIButtons(bool enableUI)
     {
         for (int i = 0; i < AllUIButtons.Count; i++)
         {
@@ -40,30 +57,77 @@ public class UIManager : MonoBehaviour
         }
     }
     
-    void UIFadeIn(bool isFadeIn)
+    void AllUIFadeIn(bool isFadeIn)
     {
-        fadeTimeTrack += Time.deltaTime;
+        allUIFadeTrack += Time.deltaTime;
 
-        if (changeFadeStyle != isFadeIn)
+        if (allUIFadeState != isFadeIn)
         {
-            fadeTimeTrack = 0f;
-            changeFadeStyle = isFadeIn;
-            HandleEnablingUIButtons(isFadeIn);
+            allUIFadeTrack = 0f;
+            allUIFadeState = isFadeIn;
+            HandleEnablingAllUIButtons(isFadeIn);
         }
 
-        if (fadeTimeTrack > fadeTime)
+        if (allUIFadeTrack > fadeTimeTabOff)
         {
-            changeFadeStyle = isFadeIn;
+            allUIFadeState = isFadeIn;
             return;
         }
         
         if (isFadeIn)
         {
-            canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 1, fadeTimeTrack / fadeTime);
+            canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 1, allUIFadeTrack / fadeTimeTabOff);
         }
         else
         {
-            canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 0, fadeTimeTrack / fadeTime);
+            canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 0, allUIFadeTrack / fadeTimeTabOff);
+        }
+    }
+    
+    void HandleEnablingSOMEUIButtons(bool enableUI, List<GameObject> some)
+    {
+        Debug.Log("Disabling");
+        for (int i = 0; i < some.Count; i++)
+        {
+            BoxCollider[] colliders = some[i].GetComponentsInChildren<BoxCollider>(true);
+
+            for (int j = 0; j < colliders.Length; j++)
+            {
+                colliders[j].enabled = enableUI;
+            }
+        }
+    }
+    
+    void SOMEUIFadeIn(bool isFadeIn, List<GameObject> Some)
+    {
+        someUIFadeTrack += Time.deltaTime;
+
+        if (someUIFadeState != isFadeIn)
+        {
+            someUIFadeTrack = 0f;
+            someUIFadeState = isFadeIn;
+            HandleEnablingSOMEUIButtons(isFadeIn, Some);
+        }
+
+        if (someUIFadeTrack > fadeTimeToolSelect)
+        {
+            someUIFadeState = isFadeIn;
+            return;
+        }
+        
+        if (isFadeIn)
+        {
+            for (int i = 0; i < Some.Count; i++)
+            {
+                Some[i].GetComponent<CanvasGroup>().alpha = Mathf.Lerp(canvasGroup.alpha, 1, someUIFadeTrack / fadeTimeToolSelect);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < Some.Count; i++)
+            {
+                Some[i].GetComponent<CanvasGroup>().alpha = Mathf.Lerp(canvasGroup.alpha, 0, someUIFadeTrack / fadeTimeToolSelect);
+            }
         }
     }
     

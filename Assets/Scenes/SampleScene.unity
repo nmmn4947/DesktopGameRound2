@@ -636,7 +636,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settingsPanel: {fileID: 1526597703}
   toolsUI: {fileID: 558601251}
-  fadeTime: 1
+  settingsButtons: {fileID: 1309156587}
+  fadeTimeTabOff: 1
+  fadeTimeToolSelect: 0.2
   AllUIButtons:
   - {fileID: 930662588}
   - {fileID: 1960481085}
@@ -644,6 +646,7 @@ MonoBehaviour:
   - {fileID: 975478826}
   - {fileID: 745368449}
   - {fileID: 1439132012}
+  cursorTool: {fileID: 919688126}
 --- !u!225 &494897898
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1063,6 +1066,7 @@ GameObject:
   m_Component:
   - component: {fileID: 919688125}
   - component: {fileID: 919688126}
+  - component: {fileID: 919688127}
   m_Layer: 6
   m_Name: CursorTool
   m_TagString: Untagged
@@ -1101,8 +1105,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0114ca1219826a4e96feee46d305c50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handCursorSprite: {fileID: 2800000, guid: 4e34a0ed75baae84b93b6800326a1f8f, type: 3}
-  handCursorSpriteClick: {fileID: 2800000, guid: 9228265f7990f4c47bcdb9b301797571, type: 3}
+  handCursorState: {fileID: 919688127}
+--- !u!114 &919688127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919688124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d342985a491361499bcbfe10f054d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorSprites:
+  - {fileID: 2800000, guid: 4e34a0ed75baae84b93b6800326a1f8f, type: 3}
+  - {fileID: 2800000, guid: 9228265f7990f4c47bcdb9b301797571, type: 3}
 --- !u!1 &930662583
 GameObject:
   m_ObjectHideFlags: 0
@@ -1691,6 +1709,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1309156588}
   - component: {fileID: 1309156589}
+  - component: {fileID: 1309156590}
   m_Layer: 5
   m_Name: SettingButtons
   m_TagString: Untagged
@@ -1745,6 +1764,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &1309156590
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309156587}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1371268949
 GameObject:
   m_ObjectHideFlags: 0

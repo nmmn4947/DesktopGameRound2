@@ -1,13 +1,18 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CursorTool : MonoBehaviour
 {
     // will rewrite code to make it nicer
-    [SerializeField] private Texture2D handCursorSprite;
-    [SerializeField] private Texture2D handCursorSpriteClick;
+    [SerializeField] private HandCursorState handCursorState;
+    
+    private bool toolIsSelected = false;
+    private CursorState currentCursorState;
 
-    private bool isHandCursor = false;
+    public bool GetIfToolIsSelected(){return toolIsSelected;}
+    public CursorState GetCurrentCursorState(){return currentCursorState;}
+    
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,22 +23,38 @@ public class CursorTool : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isHandCursor && Input.GetMouseButton(0))
+        if (currentCursorState != null)
         {
-            Cursor.SetCursor(handCursorSpriteClick, Vector2.zero, CursorMode.Auto);
-        }
-        else if (isHandCursor)
-        {
-            Cursor.SetCursor(handCursorSprite, Vector2.zero, CursorMode.Auto);
+            currentCursorState.Do();
         }
         else
         {
+            //default cursor
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         }
     }
 
+    void ToggleCursor(CursorState cursorState)
+    {
+        toolIsSelected = !toolIsSelected;
+        if (toolIsSelected)
+        {
+            if (currentCursorState != null)
+            {
+                currentCursorState.Exit();
+            }
+            currentCursorState = cursorState;
+            currentCursorState.Enter();
+        }
+        else
+        {
+            currentCursorState.Exit();
+            currentCursorState = null;
+        }
+    }
+    
     public void ToggleHandCursor()
     {
-        isHandCursor = !isHandCursor;
+        ToggleCursor(handCursorState);
     }
 }
