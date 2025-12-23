@@ -16,7 +16,14 @@ public sealed class GameStateManager
 
         Instance_ = new GameStateManager();
 
+        InputManager.Instance();
+
         return Instance_;
+    }
+
+    public GameStateManager()
+    {
+        
     }
 
 

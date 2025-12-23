@@ -15,6 +15,7 @@ public class Fren : MonoBehaviour
         
     }
 
+    /*
     public void HandleGameStates(GameManager.GameState state)
     {
         if (state == GameManager.GameState.Working)
@@ -28,4 +29,5 @@ public class Fren : MonoBehaviour
             Debug.Log(isResting);
         }
     }
+    */
 }

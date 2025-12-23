@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class RestingInteractionState : CharacterStateBase
 {
-    public RestingInteractionState()
+    public RestingInteractionState(GameObject owner)
+        :base(owner)
     { StateType = CharacterStateType.eRestingInteraction; }
     
     public override void Enter()

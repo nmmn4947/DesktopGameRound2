@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public sealed class StateParser
 {
@@ -10,7 +12,7 @@ public sealed class StateParser
     private readonly Dictionary<GameStateType, CharacterStateType> GameStateDefaultCharacterStates;
 
     // Parser Character State generator based on Character State Type
-    private readonly Dictionary<CharacterStateType, Func<CharacterStateBase>> CharacterStateFactories;
+    private readonly Dictionary<CharacterStateType, Func<GameObject, CharacterStateBase>> CharacterStateFactories;
 
     private StateParser()
     {
@@ -20,12 +22,12 @@ public sealed class StateParser
             { GameStateType.eResting, CharacterStateType.eRestingIdle }
         };
         
-        CharacterStateFactories = new Dictionary<CharacterStateType, Func<CharacterStateBase>>
+        CharacterStateFactories = new Dictionary<CharacterStateType, Func<GameObject, CharacterStateBase>>
         {
-            { CharacterStateType.eWorkingIdle, () => new WorkingIdleState() },
-            { CharacterStateType.eWorkingInteraction, () => new WorkingInteractionState() },
-            { CharacterStateType.eRestingIdle, () => new RestingIdleState() },
-            { CharacterStateType.eRestingInteraction, () => new RestingInteractionState() }  
+            { CharacterStateType.eWorkingIdle, (owner) => new WorkingIdleState(owner) },
+            { CharacterStateType.eWorkingInteraction, (owner) => new WorkingInteractionState(owner) },
+            { CharacterStateType.eRestingIdle, (owner) => new RestingIdleState(owner) },
+            { CharacterStateType.eRestingInteraction, (owner) => new RestingInteractionState(owner) }  
         };
     }
 
@@ -40,7 +42,7 @@ public sealed class StateParser
     }
 
     // Parser - return the derived CharacterState reference based on character state's type
-    public CharacterStateBase GetCharacterState(CharacterStateType Type) => CharacterStateFactories[Type]();
+    public CharacterStateBase GetCharacterState(CharacterStateType Type, GameObject owner) => CharacterStateFactories[Type](owner);
 
     // Getter function - When game state is changed, return the initial character state's type
     public CharacterStateType GetDefaultCharacterStateType(GameStateType Type) => GameStateDefaultCharacterStates[Type];

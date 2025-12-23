@@ -11,20 +11,16 @@ public sealed class CharacterStateManager : MonoBehaviour
     {
         CachedStates = new Dictionary<CharacterStateType, CharacterStateBase>
         {
-            {CharacterStateType.eWorkingIdle, new WorkingIdleState() },
-            {CharacterStateType.eRestingIdle, new RestingIdleState() }
+            {CharacterStateType.eWorkingIdle, new WorkingIdleState(this.gameObject) },
+            {CharacterStateType.eRestingIdle, new RestingIdleState(this.gameObject) }
         };
 
         GameStateManager GSManager = GameStateManager.Instance();
 
+        GSManager.ChangeGameState(new WorkingState());
+
         GSManager.OnGameStateChanged += ChangeDefaultCharacterState;
         ChangeDefaultCharacterState(GSManager.GetCurrGameStateType());
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
@@ -52,7 +48,7 @@ public sealed class CharacterStateManager : MonoBehaviour
         CharacterStateBase NextState = null;
 
         if(!CachedStates.TryGetValue(NextStateType, out NextState))
-            NextState = StateParser.Instance().GetCharacterState(NextStateType);
+            NextState = StateParser.Instance().GetCharacterState(NextStateType, this.gameObject);
 
         ChangeCharacterState(NextState);
     }

@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class RestingIdleState : CharacterStateBase
 {
-    public RestingIdleState()
+    public RestingIdleState(GameObject owner)
+        :base(owner)
     { StateType = CharacterStateType.eRestingIdle; }
     
     public override void Enter()
