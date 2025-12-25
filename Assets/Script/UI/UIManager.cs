@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class UIManager : MonoBehaviour
     private float someUIFadeTrack = 0.0f;
     private bool someUIFadeState = false;
     List<GameObject> DisabledWhenToolIsSelected = new List<GameObject>();
+
+    public event Action SelectedTools;
+    public event Action UnselectedTools;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -86,7 +91,6 @@ public class UIManager : MonoBehaviour
     
     void HandleEnablingSOMEUIButtons(bool enableUI, List<GameObject> some)
     {
-        Debug.Log("Disabling");
         for (int i = 0; i < some.Count; i++)
         {
             BoxCollider[] colliders = some[i].GetComponentsInChildren<BoxCollider>(true);
@@ -131,7 +135,7 @@ public class UIManager : MonoBehaviour
         }
     }
     
-    public void ToggleTools(Animator animator)
+    public void ToggleToolsUI(Animator animator)
     {
         if (animator.GetBool("isOpen"))
         {

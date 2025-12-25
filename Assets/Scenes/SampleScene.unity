@@ -251,22 +251,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c6911e42237414ca42354a48013ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGameState: 0
-  ChangeGameState:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Fren, Assembly-CSharp
-        m_MethodName: HandleGameStates
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!4 &43244722
 Transform:
   m_ObjectHideFlags: 0
@@ -1689,7 +1673,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 494897897}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: ToggleTools
+        m_MethodName: ToggleToolsUI
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 490253026}
@@ -2326,6 +2310,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 743323772462379118, guid: 96deb0c68cc214d4d88d651ed56f99da, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3277822507885372473, guid: 96deb0c68cc214d4d88d651ed56f99da, type: 3}
+      propertyPath: 'bGMIndex.Array.data[0]'
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6044847817147355627, guid: 96deb0c68cc214d4d88d651ed56f99da, type: 3}
