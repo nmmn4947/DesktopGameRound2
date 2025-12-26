@@ -21,12 +21,22 @@ public sealed class InputManager
         InputHandleCommon.Enable();
     }
 
+    public void Update()
+    {
+        InputHandleCommon.Update();
+
+        if(CurrentHandle != null)
+            CurrentHandle.Update();
+    }
+
     public void ChangeInputHandleSet(InputHandleSet NextInputHandleSet)
     {
         if(CurrentHandle != null)
             CurrentHandle.Disable();
 
         CurrentHandle = NextInputHandleSet;
-        CurrentHandle.Enable();
+
+        if(CurrentHandle != null)
+            CurrentHandle.Enable();
     }
 }

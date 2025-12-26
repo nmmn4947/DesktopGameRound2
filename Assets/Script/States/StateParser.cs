@@ -30,7 +30,6 @@ public sealed class StateParser
             { CharacterStateType.eRestingInteraction, (owner) => new RestingInteractionState(owner) }  
         };
     }
-
     public static StateParser Instance()
     {
         if(Instance_ != null)

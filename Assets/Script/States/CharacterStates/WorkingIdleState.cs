@@ -1,6 +1,5 @@
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class WorkingIdleState : CharacterStateBase
 {
@@ -16,15 +15,16 @@ public class WorkingIdleState : CharacterStateBase
 
         InputManager.Instance().ChangeInputHandleSet(HandleSet);
 
-        if(HandleSet.Dispatchers.TryGetValue(InputActionType.eKeyboardWPressed, out InputDispatcher dispatcher))
+        if(HandleSet.HoldingDispatchers.TryGetValue(InputActionType.eKeyboardWHolding, out InputDispatcher dispatcher))
         {
-            if(dispatcher is KeyboardInputDispatcher keyboardDispatcher)
+            if(dispatcher is KeyboardHoldingInputDispatcher keyboardDispatcher)
             {
                 Debug.Log("Bind with keyboard dispatcher");
                 keyboardDispatcher.OnKeyboardInputOccurred += DebugLog;
             }
         }
     }
+    
     public override void Update()
     {
         

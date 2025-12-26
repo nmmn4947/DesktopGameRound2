@@ -1,12 +1,19 @@
 public enum InputActionType
 {
     eNone,
+    // basic key input actions
+    // mouse
     eLeftMousePressed,
-    eLeftMouseTapped,
     eRightMousePressed,
-    eRightMouseTapped,
-    eKeyboardWPressed,
-    eKeyboardAPressed,
-    eKeyboardSPressed,
-    eKeyboardDPressed,
+
+    // holding key input actions
+    // mouse 
+    eLeftMouseHolding,
+    eRightMouseHolding,
+
+    // keyboard
+    eKeyboardWHolding,
+    eKeyboardAHolding,
+    eKeyboardSHolding,
+    eKeyboardDHolding,
 }

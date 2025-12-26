@@ -6,6 +6,7 @@ public sealed class CharacterStateManager : MonoBehaviour
     private CharacterStateBase CurrState = null;
 
     private Dictionary<CharacterStateType, CharacterStateBase> CachedStates;
+
     
     void Awake()
     {
