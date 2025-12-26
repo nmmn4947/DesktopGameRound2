@@ -19,7 +19,9 @@ public class UIManager : MonoBehaviour
     private float someUIFadeTrack = 0.0f;
     private bool someUIFadeState = false;
     List<GameObject> DisabledWhenToolIsSelected = new List<GameObject>();
-
+    
+    public event Action tabOn;
+    public event Action tabOff;
     public event Action SelectedTools;
     public event Action UnselectedTools;
     
