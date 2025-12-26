@@ -1,9 +1,12 @@
+using UnityEngine;
+
 public sealed class InputManager
 {
     private static InputManager Instance_;
 
     public InputHandleSetCommon InputHandleCommon;
     public InputHandleSet CurrentHandle = null;
+    public Vector2 CurrMousePos { get; private set; }
 
     public static InputManager Instance()
     {
@@ -15,14 +18,16 @@ public sealed class InputManager
         return Instance_;
     }
 
-    private InputManager()
+    public void Initialize()
     {
         InputHandleCommon = new();
-        InputHandleCommon.Enable();
+        InputHandleCommon.Enable();           
     }
 
     public void Update()
     {
+        CurrMousePos = Input.mousePosition;
+
         InputHandleCommon.Update();
 
         if(CurrentHandle != null)

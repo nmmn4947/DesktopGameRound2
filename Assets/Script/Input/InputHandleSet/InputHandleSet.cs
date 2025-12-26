@@ -31,19 +31,13 @@ public abstract class InputHandleSet
 
     protected void AddDispatcher(InputActionType Type)
     {
-        if(InputActionGroups.KeyboardTypes.Contains(Type))
-            Dispatchers.Add(Type, new KeyboardInputDispatcher(Type));
-
-        if(InputActionGroups.MouseTypes.Contains(Type))
-            Dispatchers.Add(Type, new MouseInputDispatcher(Type));
+        if(InputActionGroups.Types.Contains(Type))
+            Dispatchers.Add(Type, new InputDispatcher(Type));
     }
 
     protected void AddHoldingDispatcher(InputActionType Type)
     {
-        if(InputActionGroups.KeyboardHoldingTypes.Contains(Type))
-            HoldingDispatchers.Add(Type, new KeyboardHoldingInputDispatcher(Type));
-
-        if(InputActionGroups.MouseHoldingTypes.Contains(Type))
-            HoldingDispatchers.Add(Type, new MouseInputDispatcher(Type));
+        if(InputActionGroups.HoldingTypes.Contains(Type))
+            HoldingDispatchers.Add(Type, new HoldingInputDispatcher(Type));
     }
 }

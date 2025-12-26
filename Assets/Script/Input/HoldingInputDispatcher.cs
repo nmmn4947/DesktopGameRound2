@@ -1,18 +1,20 @@
 using UnityEngine.InputSystem;
 
-public class KeyboardHoldingInputDispatcher : KeyboardInputDispatcher
+public sealed class HoldingInputDispatcher : InputDispatcher
 {
     private bool IsHolding = false;
 
-    public KeyboardHoldingInputDispatcher(InputActionType type)
+    public HoldingInputDispatcher(InputActionType type)
         :base(type)
     {   }
 
     public override void Update()
     {
         if(IsHolding)
-            TriggerKeyboardInput();
+            TriggerInput();
     }
+
+    protected override bool IsValidInputActionType(InputActionType type) => InputActionGroups.HoldingTypes.Contains(type);
 
     protected override void OnPerformed(InputAction.CallbackContext context)
     {

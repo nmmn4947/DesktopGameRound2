@@ -17,11 +17,8 @@ public class WorkingIdleState : CharacterStateBase
 
         if(HandleSet.HoldingDispatchers.TryGetValue(InputActionType.eKeyboardWHolding, out InputDispatcher dispatcher))
         {
-            if(dispatcher is KeyboardHoldingInputDispatcher keyboardDispatcher)
-            {
-                Debug.Log("Bind with keyboard dispatcher");
-                keyboardDispatcher.OnKeyboardInputOccurred += DebugLog;
-            }
+            Debug.Log("Bind with keyboard dispatcher");
+            dispatcher.OnInputOccurred += DebugLog;
         }
     }
     

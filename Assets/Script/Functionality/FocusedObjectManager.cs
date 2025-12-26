@@ -6,7 +6,8 @@ public sealed class FocusedObjectManager
 
     private GameObject FocusedObject = null;
 
-    private MouseInputDispatcher BoundDispatcher = null;
+    private InputManager InputManager_ = null;
+    private InputDispatcher BoundDispatcher = null;
     private bool bBound = false;
     private int LayerMask_;
 
@@ -16,23 +17,23 @@ public sealed class FocusedObjectManager
             return Instance_;
 
         Instance_ = new FocusedObjectManager();
+
         return Instance_;
     }
 
     private FocusedObjectManager()
     {
-        InputManager inputManager = InputManager.Instance();
+        InputManager_ = InputManager.Instance();
 
         LayerMask_ = ~LayerMask.GetMask("thru");
 
-        if(inputManager.InputHandleCommon.Dispatchers.TryGetValue(InputActionType.eLeftMousePressed, out InputDispatcher dispatcher))
-            if(dispatcher is MouseInputDispatcher mouseDispatcher)
-                BoundDispatcher = mouseDispatcher;
+        if(InputManager_.InputHandleCommon.Dispatchers.TryGetValue(InputActionType.eLeftMousePressed, out InputDispatcher dispatcher))
+            BoundDispatcher = dispatcher;
     }
 
-    public void SetFocusedObject(Vector2 mousePos)
+    public void SetFocusedObject()
     {
-        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        Ray ray = Camera.main.ScreenPointToRay(InputManager_.CurrMousePos);
         RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity, LayerMask_);
 
         GameObject prev = FocusedObject;
@@ -44,7 +45,9 @@ public sealed class FocusedObjectManager
         }
 
         if(prev == FocusedObject)
-            FocusedObject = null;
+        {
+            FocusedObject = null;   
+        }
     }
 
     public void ResetFocused() => FocusedObject = null;
@@ -53,15 +56,19 @@ public sealed class FocusedObjectManager
 
     public void Enable()
     {
-        Debug.Log("Bind the function : FocusedManager");
-
         if(!bBound)
-            BoundDispatcher.OnMouseInputOccurred += SetFocusedObject;
+        {
+            BoundDispatcher.OnInputOccurred += SetFocusedObject;
+            bBound = true;   
+        }
     }
 
-    private void Disable()
+    public void Disable()
     {
         if(bBound)
-            BoundDispatcher.OnMouseInputOccurred -= SetFocusedObject;
+        {
+            BoundDispatcher.OnInputOccurred -= SetFocusedObject;
+            bBound = false;   
+        }
     }
 }

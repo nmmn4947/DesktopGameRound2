@@ -1,13 +1,23 @@
-using System.Diagnostics;
+using System;
 using UnityEngine.InputSystem;
-using UnityEngine;
 
-public abstract class InputDispatcher
-{
+public class InputDispatcher
+{    
+    public event Action OnInputOccurred;
+
     protected InputHandle Handle;
     protected InputActionType Type = InputActionType.eNone;
 
     private bool bBound = false;
+
+    public InputDispatcher(InputActionType type)
+    {
+        if(!IsValidInputActionType(type))
+            throw new ArgumentException("Type is not valid input action, need to check");
+
+        Handle = InputRegistry.Instance().GetInputHandle(type);
+        Type = type;
+    }
 
     public void Enable()
     {
@@ -19,7 +29,9 @@ public abstract class InputDispatcher
         }
     }
 
-    public abstract void Update();
+    protected virtual bool IsValidInputActionType(InputActionType type) => InputActionGroups.Types.Contains(type);
+
+    public virtual void Update(){}
 
     public void Disable()
     {
@@ -31,5 +43,7 @@ public abstract class InputDispatcher
         }
     }
 
-    protected abstract void OnPerformed(InputAction.CallbackContext context);
+    protected virtual void OnPerformed(InputAction.CallbackContext context) => TriggerInput();    
+
+    protected void TriggerInput() => OnInputOccurred?.Invoke();
 }
