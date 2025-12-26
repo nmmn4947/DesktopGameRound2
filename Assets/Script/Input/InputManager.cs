@@ -15,7 +15,7 @@ public sealed class InputManager
         return Instance_;
     }
 
-    public InputManager()
+    private InputManager()
     {
         InputHandleCommon = new();
         InputHandleCommon.Enable();

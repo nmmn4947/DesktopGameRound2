@@ -77,6 +77,7 @@ public class Transparent3D : MonoBehaviour
         layerMask = ~LayerMask.GetMask("thru");
     }
 
+    /*
     private void Update()
     {
         /*        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -104,6 +105,7 @@ public class Transparent3D : MonoBehaviour
                 }
                 SetClickthrough(!isOverUI);*/
 
+    /*
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity, layerMask);
 
@@ -135,7 +137,7 @@ public class Transparent3D : MonoBehaviour
                                 {
                                     clickable.OnMiddleMouseClick();
                                     break;
-                                }*/
+                                }*//*
                 if (clickable != null && Input.GetMouseButton(2))
                 {
                     clickable.OnMiddleMouseHold();
@@ -151,7 +153,7 @@ public class Transparent3D : MonoBehaviour
 
         SetClickthrough(!isOverUI);
     }
-
+*/
     private void SetClickthrough(bool clickthrough)
     {
         if (clickthrough)

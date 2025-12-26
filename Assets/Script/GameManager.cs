@@ -4,9 +4,11 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager Instance = null; 
 
-    private InputManager inputManager = null;
+    private InputManager InputManager_ = null;
 
-    private GameStateManager gameStateManager = null;
+    private GameStateManager GameStateManager_ = null;
+    private FocusedObjectManager FocusedObjectManager_ = null;
+
 
     void Awake()
     {
@@ -18,8 +20,10 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
 
-        inputManager = InputManager.Instance();
-        gameStateManager = GameStateManager.Instance();
+        InputManager_ = InputManager.Instance();
+        GameStateManager_ = GameStateManager.Instance();
+        FocusedObjectManager_ = FocusedObjectManager.Instance();
+        FocusedObjectManager_.Enable();
 
         DontDestroyOnLoad(this.gameObject);
     }
@@ -28,7 +32,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        inputManager.Update();
-        gameStateManager.Update();
+        InputManager_.Update();
+        GameStateManager_.Update();
+
+        if(FocusedObjectManager_.GetFocusedObject() == null)
+            Debug.Log("Focused object is null");
+        else
+            Debug.Log("Focused object is allocated");
+        
     }
 }
