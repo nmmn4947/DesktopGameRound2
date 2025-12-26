@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public sealed class FocusedObjectManager
@@ -35,14 +32,19 @@ public sealed class FocusedObjectManager
 
     public void SetFocusedObject(Vector2 mousePos)
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
         RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity, LayerMask_);
+
+        GameObject prev = FocusedObject;
 
         foreach (var hit in hits)
         {
             FocusedObject = hit.collider.gameObject;
             break;
         }
+
+        if(prev == FocusedObject)
+            FocusedObject = null;
     }
 
     public void ResetFocused() => FocusedObject = null;
@@ -51,6 +53,8 @@ public sealed class FocusedObjectManager
 
     public void Enable()
     {
+        Debug.Log("Bind the function : FocusedManager");
+
         if(!bBound)
             BoundDispatcher.OnMouseInputOccurred += SetFocusedObject;
     }

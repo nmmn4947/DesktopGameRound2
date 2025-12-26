@@ -34,11 +34,5 @@ public class GameManager : MonoBehaviour
     {
         InputManager_.Update();
         GameStateManager_.Update();
-
-        if(FocusedObjectManager_.GetFocusedObject() == null)
-            Debug.Log("Focused object is null");
-        else
-            Debug.Log("Focused object is allocated");
-        
     }
 }
