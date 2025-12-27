@@ -3,17 +3,25 @@ using UnityEngine;
 public class MoveUITowardMouse : MonoBehaviour
 {
     RectTransform rectTransform;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    Canvas canvas;
+    RectTransform canvasRect;
+
+    void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        canvas = GetComponentInParent<Canvas>();
+        canvasRect = canvas.transform as RectTransform;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Vector2 localPoint;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform.parent.GetComponent<RectTransform>(), Input.mousePosition, Camera.main, out localPoint);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            rectTransform.parent.GetComponent<RectTransform>(),
+            Input.mousePosition,
+            canvas.worldCamera,   // ✅ NOT Camera.main
+            out Vector2 localPoint
+        );
+
         rectTransform.anchoredPosition = localPoint;
     }
 }

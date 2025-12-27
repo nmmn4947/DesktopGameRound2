@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject toolsUI;
     [SerializeField] private GameObject settingsButtons;
+    [SerializeField] private GameObject fullScreenBlocker;
     [SerializeField] private float fadeTimeTabOff;
     [SerializeField] private float fadeTimeToolSelect;
     [SerializeField] private CursorTool cursorTool;
@@ -91,11 +92,13 @@ public class UIManager : MonoBehaviour
 
     public void OpenSetting()
     {
+        fullScreenBlocker.SetActive(true);
         settingsPanel.SetActive(true);
     }
     
     public void CloseSetting()
     {
+        fullScreenBlocker.SetActive(false);
         settingsPanel.SetActive(false);
     }
 
