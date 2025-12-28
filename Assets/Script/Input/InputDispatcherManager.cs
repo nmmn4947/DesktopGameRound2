@@ -52,6 +52,8 @@ public class InputDispatcherManager
 
     public InputDispatcher AddDispatcher(InputActionType Type)
     {
+        Debug.Log("Add Dispatcher : " + Type);
+
         if(InputActionGroups.Types.Contains(Type))
         {
             if(Dispatchers.ContainsKey(Type))
@@ -59,8 +61,6 @@ public class InputDispatcherManager
 
             var dispatcher = new InputDispatcher(Type);
             Dispatchers.Add(Type, dispatcher);
-
-            Debug.Log("Add Dispatcher : " + Type);
 
             return dispatcher;            
         }

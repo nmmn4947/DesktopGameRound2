@@ -19,6 +19,7 @@ public sealed class StateParser
         GameStateDefaultCharacterStates = new Dictionary<GameStateType, CharacterStateType>
         {
             { GameStateType.eWorking_Idle, CharacterStateType.eWorkingIdle },
+            { GameStateType.eWorking_Interaction, CharacterStateType.eWorkingInteraction },
             { GameStateType.eResting, CharacterStateType.eRestingIdle }
         };
         

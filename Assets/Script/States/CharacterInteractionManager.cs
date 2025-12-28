@@ -4,7 +4,6 @@ using UnityEngine;
 public sealed class CharacterInteractionManager : MonoBehaviour
 {
     private InteractionSet CurrInteractions = null;
-    private CharacterStateManager StateManagerRef = null;
 
     private bool bBound = false;
 
@@ -19,11 +18,6 @@ public sealed class CharacterInteractionManager : MonoBehaviour
         CurrInteractions = interactionSet;
     }
 
-    void Start()
-    {
-        Debug.Log("Start - Character Interaction Manager");
-        StateManagerRef = this.gameObject.GetComponent<CharacterStateManager>();
-    }
     void Update()
     {
         if(CurrInteractions != null)
@@ -37,8 +31,6 @@ public sealed class CharacterInteractionManager : MonoBehaviour
             CurrInteractions.Dispose();
             CurrInteractions = null;
         }
-
-        StateManagerRef = null;   
     }
 
     public void Enable()
@@ -48,10 +40,7 @@ public sealed class CharacterInteractionManager : MonoBehaviour
             CurrInteractions.Enable();
 
             if(CurrInteractions.IsBound() && !bBound)
-            {
-                StateManagerRef.OnCharacterStateChanged += Disable; 
                 bBound = true;   
-            }
         }
     }
     
@@ -62,10 +51,7 @@ public sealed class CharacterInteractionManager : MonoBehaviour
             CurrInteractions.Disable();
             
             if(!CurrInteractions.IsBound() && bBound)
-            {
-                StateManagerRef.OnCharacterStateChanged -= Disable;
                 bBound = false;   
-            }
         }
     }
 }

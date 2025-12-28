@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         InputManager_ = InputManager.Instance();
 
         GameStateManager_ = GameStateManager.Instance();
-        
+
         FocusedObjectManager_ = FocusedObjectManager.Instance();
         FocusedObjectManager_.Enable();
     }

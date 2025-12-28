@@ -22,15 +22,11 @@ public class InputDispatcher
 
     public void Enable()
     {
-        Debug.Log("Enable function entered, bBound : " + bBound);
-
         if(!bBound)
         {
             Handle.Enable();
             Handle.Input.performed += OnPerformed;   
             bBound = true;
-
-            Debug.Log("InputDispatcher Enabled : " + Type);
         }
     }
 
@@ -47,8 +43,6 @@ public class InputDispatcher
             Handle.Input.performed -= OnPerformed;
             Handle.Disable();   
             bBound = false;
-            
-            Debug.Log("InputDispatcher Disabled : " + Type);
         }
     }
 

@@ -64,10 +64,7 @@ public class InteractionSet
             return;
 
         foreach(var interaction in Interactions)
-        {
             interaction.Value.OnInputOccurred += interaction.Key.OnPerform;   
-            Debug.Log("Bind with" + interaction.Value.Type);   
-        }
             
         foreach(var interaction in HoldingInteractions)
         {

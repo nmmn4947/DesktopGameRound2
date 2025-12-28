@@ -37,6 +37,8 @@ public sealed class GameStateManager
     // change the current game state when a trigger occur
     public void ChangeGameState(GameStateBase NextState)
     {
+        Debug.Log("Start to change game state");
+
         if(CurrState == NextState)
         {
             Debug.Log("Curr state is same as Next state");
