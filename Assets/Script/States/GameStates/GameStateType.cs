@@ -2,6 +2,7 @@ public enum GameStateType
 {
     eNone,
     eTutorial,
-    eWorking,
+    eWorking_Idle,
+    eWorking_Interaction,
     eResting,
 }

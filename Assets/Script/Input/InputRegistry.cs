@@ -31,6 +31,8 @@ public sealed class InputRegistry
                 // will be used to check collided game object by raycasting when pressed
                 Handles.Add(InputActionType.eLeftMousePressed, new InputHandle(map.FindAction("LeftMousePressed")));
                 Handles.Add(InputActionType.eRightMousePressed, new InputHandle(map.FindAction("RightMousePressed")));
+            
+                Handles.Add(InputActionType.eKeyboardWPressed, new InputHandle(map.FindAction("KeyboardWPressed")));
 
                 // holding input action contains two trigger, when pressed and released
                 Handles.Add(InputActionType.eLeftMouseHolding, new InputHandle(map.FindAction("LeftMouseHolding")));

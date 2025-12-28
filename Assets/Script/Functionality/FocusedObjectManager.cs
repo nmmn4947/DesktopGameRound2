@@ -1,3 +1,4 @@
+using UnityEditor.Search;
 using UnityEngine;
 
 public sealed class FocusedObjectManager
@@ -5,7 +6,6 @@ public sealed class FocusedObjectManager
     private static FocusedObjectManager Instance_ = null;
 
     private GameObject FocusedObject = null;
-
     private InputManager InputManager_ = null;
     private InputDispatcher BoundDispatcher = null;
     private bool bBound = false;
@@ -27,8 +27,10 @@ public sealed class FocusedObjectManager
 
         LayerMask_ = ~LayerMask.GetMask("thru");
 
-        if(InputManager_.InputHandleCommon.Dispatchers.TryGetValue(InputActionType.eLeftMousePressed, out InputDispatcher dispatcher))
-            BoundDispatcher = dispatcher;
+        BoundDispatcher = InputManager_.InputDispatchers.AddDispatcher(InputActionType.eLeftMousePressed);
+
+        if(BoundDispatcher != null)
+            BoundDispatcher.OnInputOccurred += SetFocusedObject;
     }
 
     public void SetFocusedObject()

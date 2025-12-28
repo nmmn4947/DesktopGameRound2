@@ -1,11 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public sealed class InputManager
 {
-    private static InputManager Instance_;
+    private static InputManager Instance_ = null;
 
-    public InputHandleSetCommon InputHandleCommon;
-    public InputHandleSet CurrentHandle = null;
+    public InputDispatcherManager InputDispatchers = null;
     public Vector2 CurrMousePos { get; private set; }
 
     public static InputManager Instance()
@@ -13,35 +13,48 @@ public sealed class InputManager
         if(Instance_ != null)
             return Instance_;
 
-        Instance_ = new InputManager();
+        Instance_ = new();
 
         return Instance_;
     }
 
-    public void Initialize()
+    private InputManager()
     {
-        InputHandleCommon = new();
-        InputHandleCommon.Enable();           
+        InputDispatchers = new InputDispatcherManager();        
     }
 
     public void Update()
     {
         CurrMousePos = Input.mousePosition;
 
-        InputHandleCommon.Update();
-
-        if(CurrentHandle != null)
-            CurrentHandle.Update();
+        InputDispatchers.Update();
     }
 
-    public void ChangeInputHandleSet(InputHandleSet NextInputHandleSet)
+    public void ResetInputDispatcherSet(List<InputActionType> DeletionList)
     {
-        if(CurrentHandle != null)
-            CurrentHandle.Disable();
+        if(DeletionList != null)
+            foreach(var deletion in DeletionList)
+            {
+                InputDispatchers.Disable(deletion);
+                InputDispatchers.RemoveDispatcher(deletion);   
+            }        
+    }
 
-        CurrentHandle = NextInputHandleSet;
+    public void SetInputDispatcherSet(List<InputActionType> AdditionList)
+    {
+        if(AdditionList != null)
+            foreach(var addition in AdditionList)
+            {
+                Debug.Log("Enter Set Input DispatcherSet");
 
-        if(CurrentHandle != null)
-            CurrentHandle.Enable();
+                InputDispatchers.AddDispatcher(addition);
+                InputDispatchers.Enable(addition);
+            }
+    }
+
+    public void ChangeInputDispatcherSet(List<InputActionType> DeletionList, List<InputActionType> AdditionList)
+    {
+        ResetInputDispatcherSet(DeletionList);
+        SetInputDispatcherSet(AdditionList);
     }
 }

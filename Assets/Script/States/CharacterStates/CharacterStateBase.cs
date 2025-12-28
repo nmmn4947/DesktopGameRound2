@@ -13,4 +13,5 @@ public abstract class CharacterStateBase : StateBase
     public abstract void Enter();
     public abstract void Update();
     public abstract void Exit();
+    public virtual void Dispose() => Owner = null;
 }

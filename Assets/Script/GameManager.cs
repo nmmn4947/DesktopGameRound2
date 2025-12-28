@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     private GameStateManager GameStateManager_ = null;
     private FocusedObjectManager FocusedObjectManager_ = null;
 
-
     void Awake()
     {
         if(Instance != null)
@@ -21,17 +20,19 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         InputManager_ = InputManager.Instance();
+
         GameStateManager_ = GameStateManager.Instance();
+        
         FocusedObjectManager_ = FocusedObjectManager.Instance();
         FocusedObjectManager_.Enable();
-
-        DontDestroyOnLoad(this.gameObject);
     }
-
 
     // Update is called once per frame
     void Update()
     {
+        if (Instance != this)
+            return;   
+
         InputManager_.Update();
         GameStateManager_.Update();
     }

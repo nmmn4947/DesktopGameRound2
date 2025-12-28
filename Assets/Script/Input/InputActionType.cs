@@ -6,6 +6,9 @@ public enum InputActionType
     eLeftMousePressed,
     eRightMousePressed,
 
+    // keyboard
+    eKeyboardWPressed,
+
     // holding key input actions
     // mouse 
     eLeftMouseHolding,

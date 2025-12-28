@@ -2,7 +2,7 @@ using UnityEngine.InputSystem;
 
 public sealed class HoldingInputDispatcher : InputDispatcher
 {
-    private bool IsHolding = false;
+    private bool bHolding = false;
 
     public HoldingInputDispatcher(InputActionType type)
         :base(type)
@@ -10,9 +10,11 @@ public sealed class HoldingInputDispatcher : InputDispatcher
 
     public override void Update()
     {
-        if(IsHolding)
+        if(bHolding)
             TriggerInput();
     }
+
+    public bool IsHolding() => bHolding;
 
     protected override bool IsValidInputActionType(InputActionType type) => InputActionGroups.HoldingTypes.Contains(type);
 
@@ -20,6 +22,6 @@ public sealed class HoldingInputDispatcher : InputDispatcher
     {
         base.OnPerformed(context);
 
-        IsHolding = !IsHolding;
+        bHolding = !bHolding;
     }
 }
