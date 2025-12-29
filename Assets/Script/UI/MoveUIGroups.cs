@@ -8,7 +8,6 @@ public class MoveUIGroups : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     [SerializeField] private Canvas canvas;
     [SerializeField] private RectTransform uiGroup;
     [SerializeField] private RectTransform uiMouse;
-    [SerializeField] private Vector2 offset;
     
     private RectTransform canvasRectTransform;
     private bool isMoving = false;
@@ -22,7 +21,7 @@ public class MoveUIGroups : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
         if (isMoving)
         {
-            uiGroup.anchoredPosition = uiMouse.anchoredPosition - offset;
+            uiGroup.anchoredPosition = uiMouse.anchoredPosition;
         }
     }
 
