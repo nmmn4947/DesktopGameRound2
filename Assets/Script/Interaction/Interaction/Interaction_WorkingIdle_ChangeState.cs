@@ -2,7 +2,8 @@ using UnityEngine;
 
 public sealed class Interaction_WorkingIdle_ChangeState : InteractionBase_SingleInput
 {
-    public Interaction_WorkingIdle_ChangeState()
+    public Interaction_WorkingIdle_ChangeState(GameObject owner)
+        :base(owner)
     {
         Type = InputActionType.eKeyboardWPressed;
     }

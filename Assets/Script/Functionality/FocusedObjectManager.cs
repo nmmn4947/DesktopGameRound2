@@ -1,4 +1,4 @@
-using UnityEditor.Search;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public sealed class FocusedObjectManager
@@ -40,22 +40,53 @@ public sealed class FocusedObjectManager
 
         GameObject prev = FocusedObject;
 
-        foreach (var hit in hits)
-        {
-            FocusedObject = hit.collider.gameObject;
-            break;
-        }
+        // when hit object list is not empty
+        if(0 < hits.Length)
+        { 
+            FocusedObject = hits[0].collider.gameObject;
+            var interactionManager = FocusedObject.GetComponent<CharacterInteractionManager>();
 
-        if(prev == FocusedObject)
+            // when clicked the same game object, turn the focused off
+            if(prev == FocusedObject)
+            {
+                interactionManager?.DisableFocusedObjectInteraction();
+                FocusedObject = null;
+                return;   
+            }
+
+            interactionManager?.EnableFocusedObjectInteraction();
+        }
+        // when clicked the empty space, turn the focused off
+        else
         {
-            FocusedObject = null;   
+            if(FocusedObject == null)
+                return;
+
+            var interactionManager = FocusedObject.GetComponent<CharacterInteractionManager>();
+            interactionManager?.DisableFocusedObjectInteraction();
+
+            FocusedObject = null;                
+
         }
     }
 
-    public void ResetFocused() => FocusedObject = null;
+    // reset the focused object - this function will be used when the game state is changed
+    public void ResetFocused()
+    {
+        if(FocusedObject != null)
+        {
+            CharacterInteractionManager interactionManager = FocusedObject.GetComponent<CharacterInteractionManager>();
+            
+            if(interactionManager != null)
+                interactionManager.DisableFocusedObjectInteraction();
+            
+            FocusedObject = null;
+        }
+    }
     
     public GameObject GetFocusedObject() => FocusedObject; 
 
+    // bind with the dispatcher directly
     public void Enable()
     {
         if(!bBound)
@@ -65,6 +96,7 @@ public sealed class FocusedObjectManager
         }
     }
 
+    // unbind with the dispatcher 
     public void Disable()
     {
         if(bBound)

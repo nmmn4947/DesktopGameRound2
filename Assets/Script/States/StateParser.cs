@@ -26,7 +26,7 @@ public sealed class StateParser
         CharacterStateFactories = new Dictionary<CharacterStateType, Func<GameObject, CharacterStateBase>>
         {
             { CharacterStateType.eWorkingIdle, (owner) => new CharacterState_WorkingIdle(owner) },
-            { CharacterStateType.eWorkingInteraction, (owner) => new WorkingInteractionState(owner) },
+            { CharacterStateType.eWorkingInteraction, (owner) => new CharacterState_WorkingInteraciton(owner) },
             { CharacterStateType.eRestingIdle, (owner) => new RestingIdleState(owner) },
             { CharacterStateType.eRestingInteraction, (owner) => new RestingInteractionState(owner) }  
         };

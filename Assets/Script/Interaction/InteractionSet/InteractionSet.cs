@@ -1,106 +1,215 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class InteractionSet
 {
-    private InputManager InputManager_;
-    private bool bBound = false;
-
-    protected Dictionary<InteractionBase, InputDispatcher> Interactions = new();
-    protected Dictionary<InteractionBase, List<HoldingInputDispatcher>> HoldingInteractions = new();
-
-    public InteractionSet(List<InteractionBase> interactions)
+    // Input binding class is for collections of specific dispatcher and type based on each interactions
+    private class InputBinding
     {
+        public InputDispatcher Dispatcher = null;
+        public InteractionType InteractionType = InteractionType.Generic;
+        public bool bBound = false;
+
+        public InputBinding(InputDispatcher dispatcher, InteractionType interactionType)
+        {
+            Dispatcher = dispatcher;
+            InteractionType = interactionType;
+        }
+
+        public void Dispose()
+        {
+            if(bBound)
+                throw new ArgumentException("Needed to check unbind interactions");
+
+            Dispatcher = null;
+        }
+    }
+    private InputManager InputManager_ = null;
+
+    private Dictionary<InteractionBase, InputBinding> Interactions = new();
+    private Dictionary<InteractionBase, List<InputBinding>> HoldingInteractions = new();
+
+    // ctor of InteractionSets, get the list of interactions and insert into proper dictionaries
+    public InteractionSet(List<(InteractionBase, InteractionType)> interactions)
+    {        
         InputManager_ = InputManager.Instance();
 
+        // add each interactions into proper interaction dictionaries
+        foreach(var interaction in interactions)
+            Add(interaction.Item1, interaction.Item2);
+    }
+
+    // when the interaction is inserted, this function can create inputbinding based on the interaction's input action type
+    private void Add(InteractionBase Interaction, InteractionType interactionType)
+    {
         InputDispatcherManager dispatcherManager = InputManager_.InputDispatchers;
 
-        foreach(var interaction in interactions)
+        // check whether the interaction is multi input or not 
+        if(Interaction is InteractionBase_MultiInput multiInteraction)
         {
-            if(interaction is InteractionBase_MultiInput multiInteraction)
+            List<InputBinding> holdingInputDispatchers = new();
+
+            // the interaction is multi input so need progresses to add each types' dispatcher
+            foreach(var type in multiInteraction.Types)
             {
-                List<HoldingInputDispatcher> holdingInputDispatchers = new();
-
-                foreach(var type in multiInteraction.Types)
-                {
-                    InputDispatcher dispatcher = dispatcherManager.GetDispatcher(type);
-
-                    if(dispatcher != null && dispatcher is HoldingInputDispatcher holdingDispatcher)
-                        holdingInputDispatchers.Add(holdingDispatcher);
-                }
-
-                HoldingInteractions.Add(interaction, holdingInputDispatchers);
-            }   
-            
-            if(interaction is InteractionBase_SingleInput singleInteraction)
-            {
-                var type = singleInteraction.Type;
-
                 InputDispatcher dispatcher = dispatcherManager.GetDispatcher(type);
+
+                // check the dispatcher is valid and the valid dispatcher is holding input dispatcher
+                if(dispatcher != null && dispatcher is HoldingInputDispatcher holdingDispatcher)
+                    holdingInputDispatchers.Add(new(holdingDispatcher, interactionType));
+            }
+
+            HoldingInteractions.Add(Interaction, holdingInputDispatchers);
+        }   
+
+        // check whether the interaction is single input or not  
+        if(Interaction is InteractionBase_SingleInput singleInteraction)
+        {
+            var type = singleInteraction.Type;
+
+            InputDispatcher dispatcher = dispatcherManager.GetDispatcher(type);
                     
-                if(dispatcher != null)
-                {
-                    if(dispatcher is HoldingInputDispatcher holdingInputDispatcher)
-                        HoldingInteractions.Add(interaction, new List<HoldingInputDispatcher>{holdingInputDispatcher});
-                    else
-                        Interactions.Add(interaction, dispatcher);
-                }
-                else  
-                    throw new ArgumentException($"Dispatcher for {type} not found.");
-            }   
+            // if the matched dispatcher is available
+            if(dispatcher != null)
+            {
+                // check whether the dispatcher is holding dispatcher or not 
+                if(dispatcher is HoldingInputDispatcher holdingInputDispatcher)
+                    // add the holding interaction dictionary
+                    HoldingInteractions.Add(Interaction, new List<InputBinding>{new (holdingInputDispatcher, interactionType)});
+                else
+                    // add the interaction dictionary
+                    Interactions.Add(Interaction, new(dispatcher, interactionType));
+            }
+            else  
+                throw new ArgumentException($"Dispatcher for {type} not found.");
         }
     }
 
     public void Update()
     {
+        // update each multi input interaction's valid perform check 
         foreach(var interaction in HoldingInteractions)
             if(interaction.Key is InteractionBase_MultiInput multiInput)
                 multiInput.Update();
     }
-    public void Enable()
+
+    public void Enable(InteractionBase interaction)
     {
-        if(bBound)
-            return;
-
-        foreach(var interaction in Interactions)
-            interaction.Value.OnInputOccurred += interaction.Key.OnPerform;   
-            
-        foreach(var interaction in HoldingInteractions)
+        if(Interactions.ContainsKey(interaction))
         {
-            var dispatchers = interaction.Value;
-
-            foreach(InputDispatcher dispatcher in dispatchers)
-                dispatcher.OnInputOccurred += interaction.Key.OnPerform;   
-        }
-
-        bBound = true;
-    }
-
-    public bool IsBound() => bBound;
-
-    public void Disable()
-    {
-        if(!bBound)
-            return;
-
-        foreach(var interaction in Interactions)
-            interaction.Value.OnInputOccurred -= interaction.Key.OnPerform;   
-            
-        foreach(var interaction in HoldingInteractions)
-        {
-            var dispatchers = interaction.Value;
-
-            foreach(InputDispatcher dispatcher in dispatchers)
-                dispatcher.OnInputOccurred -= interaction.Key.OnPerform;   
+            InputBinding inputBinding = Interactions[interaction];
+        
+            if(!inputBinding.bBound)
+            {
+                inputBinding.Dispatcher.OnInputOccurred += interaction.OnPerform;
+                inputBinding.bBound = true;                
+            }
         }
         
-        bBound = false;
+        if(HoldingInteractions.ContainsKey(interaction))
+        {
+            List<InputBinding> inputBindings = HoldingInteractions[interaction];
+        
+            foreach(var binding in inputBindings)
+                if(!binding.bBound)
+                {
+                    binding.Dispatcher.OnInputOccurred += interaction.OnPerform;
+                    binding.bBound = true;
+                }
+        }
+    }
+
+    // bind the interaction of generic type with the proper dispatchers
+    public void GenericEnableAll()
+    {
+        // bind interactions' OnPerform function with proper dispatcher
+        foreach(var interaction in Interactions)
+        {
+            // check whether it is not bound yet, and check whter it is generic type or not
+            if(!interaction.Value.bBound && interaction.Value.InteractionType == InteractionType.Generic)
+            {
+                interaction.Value.Dispatcher.OnInputOccurred += interaction.Key.OnPerform;   
+                interaction.Value.bBound = true;                
+            }
+        }
+
+        // bind interactions' OnPerform function with proper dispatchers
+        foreach(var interaction in HoldingInteractions)
+        {
+            var inputBindings = interaction.Value;
+
+            foreach(var inputBinding in inputBindings)
+                // check whether it is not bound yet, and check whter it is generic type or not
+                if(!inputBinding.bBound && inputBinding.InteractionType == InteractionType.Generic)
+                {
+                    inputBinding.Dispatcher.OnInputOccurred += interaction.Key.OnPerform;   
+                    inputBinding.bBound = true;      
+                }
+        }
+    }
+
+    public void Disable(InteractionBase interaction)
+    {
+        if(Interactions.ContainsKey(interaction))
+        {
+            InputBinding inputBinding = Interactions[interaction];
+        
+            if(inputBinding.bBound)
+            {
+                inputBinding.Dispatcher.OnInputOccurred -= interaction.OnPerform;
+                inputBinding.bBound = false;   
+            }
+        }
+        
+        if(HoldingInteractions.ContainsKey(interaction))
+        {
+            List<InputBinding> inputBindings = HoldingInteractions[interaction];
+        
+            foreach(var binding in inputBindings)
+            {
+                if(binding.bBound)
+                {
+                    binding.Dispatcher.OnInputOccurred -= interaction.OnPerform;
+                    binding.bBound = false;   
+                }
+            }
+        }
+    }
+
+    public void DisableAll()
+    {
+        // unbind interactions' onperform function to each dispatcher
+        foreach(var interaction in Interactions)
+        {
+            var binding = interaction.Value;
+
+            if(binding.bBound)
+            {
+                binding.Dispatcher.OnInputOccurred -= interaction.Key.OnPerform;
+                binding.bBound = false;       
+            }
+        }
+            
+        // unbind interactions' onperform function to each dispatchers
+        foreach(var interaction in HoldingInteractions)
+        {
+            var bindings = interaction.Value;
+
+            foreach(var binding in bindings)
+            {
+                if(binding.bBound)
+                {
+                    binding.Dispatcher.OnInputOccurred -= interaction.Key.OnPerform;
+                    binding.bBound = false;
+                }
+            } 
+        }
     }
 
     public void Dispose()
     {
-        Disable();
+        // explicitly unbind
+        DisableAll();
 
         Interactions.Clear();
         

@@ -1,4 +1,8 @@
-using System.Collections.Generic;
+public enum InteractionType
+{
+    Generic,
+    FocusedObject
+}
 
 public interface InteractionBase
 {

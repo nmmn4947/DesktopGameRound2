@@ -1,15 +1,18 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public abstract class InteractionBase_MultiInput : InteractionBase
 {
     protected bool bPerformed = false;
     protected bool bValidPerform = false;
 
+    protected GameObject Owner = null;
+
     public List<InputActionType> Types;
     private List<HoldingInputDispatcher> Dispatchers = new();
 
-    public InteractionBase_MultiInput(List<InputActionType> types)
+    public InteractionBase_MultiInput(GameObject owner, List<InputActionType> types)
     {
         InputDispatcherManager dispatcherManager = InputManager.Instance().InputDispatchers;
 
@@ -25,6 +28,8 @@ public abstract class InteractionBase_MultiInput : InteractionBase
         }
 
         Types = types;
+
+        Owner = owner;
     }
     public abstract void OnPerform();
 
@@ -45,6 +50,7 @@ public abstract class InteractionBase_MultiInput : InteractionBase
 
     public void Dispose()
     {
+        Owner = null;
         Dispatchers.Clear();
         Types.Clear();
     }

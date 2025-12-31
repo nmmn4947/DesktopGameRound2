@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,9 +10,8 @@ public class CharacterState_WorkingIdle : CharacterStateBase
 
     public override void Enter()
     {
-        List<InteractionBase> interactions = new List<InteractionBase>{
-            new Interaction_WorkingIdle_ChangeState()
-        };
+        List<(InteractionBase, InteractionType)> interactions = new List<(InteractionBase, InteractionType)>()
+        {(new Interaction_WorkingIdle_ChangeState(Owner), InteractionType.Generic) };
 
         if(Owner != null)
         {
@@ -20,7 +20,7 @@ public class CharacterState_WorkingIdle : CharacterStateBase
             if(manager != null)
             {
                 manager.ChangeInteractions(new InteractionSet(interactions));  
-                manager.Enable();                
+                manager.GenericEnableAll();
             }
         }
     }
@@ -28,5 +28,10 @@ public class CharacterState_WorkingIdle : CharacterStateBase
     public override void Update()
     {   }
     public override void Exit()
-    {   }
+    {
+        CharacterInteractionManager manager = Owner.GetComponent<CharacterInteractionManager>();
+
+        if(manager != null)
+                manager.DisableAll();  
+    }
 }
