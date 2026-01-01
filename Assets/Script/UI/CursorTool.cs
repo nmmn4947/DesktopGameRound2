@@ -1,8 +1,16 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CursorTool : MonoBehaviour
 {
+    private static CursorTool instance;
+
+    public static CursorTool Instance()
+    {
+        return instance;
+    }
+    
     // will rewrite code to make it nicer
     [SerializeField] private HandCursorState handCursorState;
     
@@ -11,8 +19,18 @@ public class CursorTool : MonoBehaviour
 
     public bool GetIfToolIsSelected(){return toolIsSelected;}
     public CursorState GetCurrentCursorState(){return currentCursorState;}
-    
-    
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
+        instance = this;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

@@ -51,20 +51,20 @@ public sealed class GameStateManager
             
         if(CurrState != null)
         {
+            // exit current game state 
+            CurrState.Exit();
             // exit all of character's current state
             OnGameStateFinished?.Invoke();
             // reset all of input dispatchers
             inputManager.ResetInputDispatcherSet(CurrState.dispatcherType);
-            // exit current game state 
-            CurrState.Exit();
         }
 
         CurrState = NextState;
 
+
         if(CurrState != null)
         {
             Debug.Log("Enter Current State : " + CurrState );
-
             // enter current game state
             CurrState.Enter();
             // set input dispatchers based on current game state
