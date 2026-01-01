@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public sealed class FocusedObjectManager
@@ -27,9 +28,6 @@ public sealed class FocusedObjectManager
         LayerMask_ = ~LayerMask.GetMask("thru");
 
         BoundDispatcher = InputManager_.InputDispatchers.AddDispatcher(InputActionType.eLeftMousePressed);
-
-        if(BoundDispatcher != null)
-            BoundDispatcher.OnInputOccurred += SetFocusedObject;
     }
 
     public void SetFocusedObject()
@@ -42,18 +40,21 @@ public sealed class FocusedObjectManager
         // when hit object list is not empty
         if(0 < hits.Length)
         { 
-            FocusedObject = hits[0].collider.gameObject;
-            var interactionManager = FocusedObject.GetComponent<CharacterInteractionManager>();
+            var next = hits[0].collider.gameObject;
 
             // when clicked the same game object, turn the focused off
-            if(prev == FocusedObject)
+            if(prev == next)
             {
-                interactionManager?.DisableFocusedObjectInteraction();
+                prev?.GetComponent<FocusedHandlerManager>()?.Handler?.UnFocused();
                 FocusedObject = null;
+            
                 return;   
             }
+            
+            prev?.GetComponent<FocusedHandlerManager>()?.Handler?.UnFocused();
 
-            interactionManager?.EnableFocusedObjectInteraction();
+            FocusedObject = next;
+            FocusedObject?.GetComponent<FocusedHandlerManager>()?.Handler?.Focused();
         }
         // when clicked the empty space, turn the focused off
         else
@@ -61,11 +62,8 @@ public sealed class FocusedObjectManager
             if(FocusedObject == null)
                 return;
 
-            var interactionManager = FocusedObject.GetComponent<CharacterInteractionManager>();
-            interactionManager?.DisableFocusedObjectInteraction();
-
-            FocusedObject = null;                
-
+            FocusedObject?.GetComponent<FocusedHandlerManager>()?.Handler?.UnFocused();   
+            FocusedObject = null;
         }
     }
 
@@ -74,11 +72,7 @@ public sealed class FocusedObjectManager
     {
         if(FocusedObject != null)
         {
-            CharacterInteractionManager interactionManager = FocusedObject.GetComponent<CharacterInteractionManager>();
-            
-            if(interactionManager != null)
-                interactionManager.DisableFocusedObjectInteraction();
-            
+            FocusedObject?.GetComponent<FocusedHandlerManager>()?.Handler?.UnFocused();
             FocusedObject = null;
         }
     }
@@ -90,7 +84,8 @@ public sealed class FocusedObjectManager
     {
         if(!bBound)
         {
-            BoundDispatcher.OnInputOccurred += SetFocusedObject;
+            Debug.Log("Focused Object Enable");
+            BoundDispatcher.Bind(SetFocusedObject);
             bBound = true;   
         }
     }
@@ -100,7 +95,8 @@ public sealed class FocusedObjectManager
     {
         if(bBound)
         {
-            BoundDispatcher.OnInputOccurred -= SetFocusedObject;
+            Debug.Log("Focused Object Disable");
+            BoundDispatcher.UnBind(SetFocusedObject);
             bBound = false;   
         }
     }

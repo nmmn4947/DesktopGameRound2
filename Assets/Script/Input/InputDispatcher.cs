@@ -10,6 +10,7 @@ public class InputDispatcher
     public InputActionType Type = InputActionType.eNone;
 
     private bool bBound = false;
+    public int BindCount {get; private set; }
 
     public InputDispatcher(InputActionType type)
     {
@@ -44,6 +45,26 @@ public class InputDispatcher
             Handle.Disable();   
             bBound = false;
         }
+    }
+
+    public void Bind(Action boundFunction)
+    {
+        if(boundFunction == null)
+            return;
+
+        
+        OnInputOccurred += boundFunction;
+        BindCount++;
+    }
+    
+    public void UnBind(Action boundFunction)
+    {
+        if(boundFunction == null)
+            return;
+
+        
+        OnInputOccurred -= boundFunction;
+        BindCount++;
     }
 
     protected virtual void OnPerformed(InputAction.CallbackContext context) => TriggerInput();    

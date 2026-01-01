@@ -20,7 +20,7 @@ public sealed class CharacterStateManager : MonoBehaviour
 
         CachedStates = new Dictionary<CharacterStateType, CharacterStateBase>
         {
-            {CharacterStateType.eWorkingIdle, new CharacterState_WorkingIdle(this.gameObject) },
+            {CharacterStateType.eWorking_Idle, new CharacterState_WorkingIdle(this.gameObject) },
             {CharacterStateType.eRestingIdle, new RestingIdleState(this.gameObject) }
         };
         

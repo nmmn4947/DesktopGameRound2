@@ -45,8 +45,6 @@ public sealed class InputManager
         if(AdditionList != null)
             foreach(var addition in AdditionList)
             {
-                Debug.Log("Enter Set Input DispatcherSet");
-
                 InputDispatchers.AddDispatcher(addition);
                 InputDispatchers.Enable(addition);
             }

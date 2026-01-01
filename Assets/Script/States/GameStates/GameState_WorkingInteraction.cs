@@ -12,13 +12,10 @@ public class GameState_WorkingInteraction : GameStateBase
 
         dispatcherType = new List<InputActionType>
         {
-            InputActionType.eLeftMouseHolding,
-
-            InputActionType.eKeyboardWHolding,
-            InputActionType.eKeyboardAHolding,
-            InputActionType.eKeyboardSHolding,
-            InputActionType.eKeyboardDHolding,
+            InputActionType.eLeftMousePressed,
         };
+
+        FocusedObjectManager.Instance()?.Enable();
 
         //InputDispatcherSet dispatchers = new InputDispatcherSet_WorkingIdleState();
 
@@ -28,7 +25,9 @@ public class GameState_WorkingInteraction : GameStateBase
     {   }
 
     public override void Exit()
-    {   }
+    {
+        FocusedObjectManager.Instance()?.Disable();
+    }
 
     public override void Dispose()
     {

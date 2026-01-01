@@ -8,20 +8,18 @@ public class GameState_WorkingIdle : GameStateBase
     
     public override void Enter()
     {
+        // just initialize the list of dispatcher type
+        // - the game state manager automatically change the input dispatcher list
         dispatcherType = new List<InputActionType>
         {
             InputActionType.eKeyboardWPressed
         };
-        //InputDispatcherSet dispatchers = new InputDispatcherSet_WorkingIdleState();
-
-        //InputManager.Instance().ChangeInputDispatcherSet(dispatchers);
     }
     public override void Update()
     {
     }
     public override void Exit()
     {
-        //InputManager.Instance().ChangeInputDispatcherSet(null);
     }
 
     public override void Dispose()

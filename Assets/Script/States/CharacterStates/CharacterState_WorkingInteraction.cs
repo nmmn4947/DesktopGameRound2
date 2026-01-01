@@ -5,17 +5,19 @@ public class CharacterState_WorkingInteraciton : CharacterStateBase
 {
     public CharacterState_WorkingInteraciton(GameObject owner)
         :base(owner)
-    { StateType = CharacterStateType.eWorkingInteraction; }
+    { StateType = CharacterStateType.eWorking_Interaction; }
     
     public override void Enter()
     {
-        if(Owner != null)
-        {
-            CharacterInteractionManager manager = Owner.GetComponent<CharacterInteractionManager>();
+        if(Owner == null)
+            return;
 
-            if(manager != null)
-                manager.ChangeInteractions(null);  
-        }
+        CharacterInteractionManager manager = Owner.GetComponent<CharacterInteractionManager>();
+
+        if(manager != null)
+            manager.ChangeInteractions(null);  
+
+        Owner.GetComponent<FocusedHandlerManager>()?.ChangeHandler(new CharacterFocusedHandler(Owner));
     }
     public override void Update()
     {   }

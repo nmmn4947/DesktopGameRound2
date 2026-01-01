@@ -1,8 +1,11 @@
 public enum CharacterStateType
 {
     eNone,
-    eWorkingIdle,
-    eWorkingInteraction,
+
+    eWorking_Idle,
+    eWorking_Interaction,
+    eWorking_Focused,
+
     eRestingIdle,
     eRestingInteraction,
 }

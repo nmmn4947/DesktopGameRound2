@@ -18,15 +18,16 @@ public sealed class StateParser
     {
         GameStateDefaultCharacterStates = new Dictionary<GameStateType, CharacterStateType>
         {
-            { GameStateType.eWorking_Idle, CharacterStateType.eWorkingIdle },
-            { GameStateType.eWorking_Interaction, CharacterStateType.eWorkingInteraction },
+            { GameStateType.eWorking_Idle, CharacterStateType.eWorking_Idle },
+            { GameStateType.eWorking_Interaction, CharacterStateType.eWorking_Interaction },
             { GameStateType.eResting, CharacterStateType.eRestingIdle }
         };
         
         CharacterStateFactories = new Dictionary<CharacterStateType, Func<GameObject, CharacterStateBase>>
         {
-            { CharacterStateType.eWorkingIdle, (owner) => new CharacterState_WorkingIdle(owner) },
-            { CharacterStateType.eWorkingInteraction, (owner) => new CharacterState_WorkingInteraciton(owner) },
+            { CharacterStateType.eWorking_Idle, (owner) => new CharacterState_WorkingIdle(owner) },
+            { CharacterStateType.eWorking_Interaction, (owner) => new CharacterState_WorkingInteraciton(owner) },
+            { CharacterStateType.eWorking_Focused, (owner) => new CharacterState_WorkingFocused(owner) },
             { CharacterStateType.eRestingIdle, (owner) => new RestingIdleState(owner) },
             { CharacterStateType.eRestingInteraction, (owner) => new RestingInteractionState(owner) }  
         };

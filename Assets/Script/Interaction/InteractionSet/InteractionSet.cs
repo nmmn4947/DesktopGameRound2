@@ -101,7 +101,7 @@ public class InteractionSet
         
             if(!inputBinding.bBound)
             {
-                inputBinding.Dispatcher.OnInputOccurred += interaction.OnPerform;
+                inputBinding.Dispatcher.Bind(interaction.OnPerform);
                 inputBinding.bBound = true;                
             }
         }
@@ -113,7 +113,7 @@ public class InteractionSet
             foreach(var binding in inputBindings)
                 if(!binding.bBound)
                 {
-                    binding.Dispatcher.OnInputOccurred += interaction.OnPerform;
+                    binding.Dispatcher.Bind(interaction.OnPerform);
                     binding.bBound = true;
                 }
         }
@@ -128,7 +128,7 @@ public class InteractionSet
             // check whether it is not bound yet, and check whter it is generic type or not
             if(!interaction.Value.bBound && interaction.Value.InteractionType == InteractionType.Generic)
             {
-                interaction.Value.Dispatcher.OnInputOccurred += interaction.Key.OnPerform;   
+                interaction.Value.Dispatcher.Bind(interaction.Key.OnPerform);
                 interaction.Value.bBound = true;                
             }
         }
@@ -142,7 +142,7 @@ public class InteractionSet
                 // check whether it is not bound yet, and check whter it is generic type or not
                 if(!inputBinding.bBound && inputBinding.InteractionType == InteractionType.Generic)
                 {
-                    inputBinding.Dispatcher.OnInputOccurred += interaction.Key.OnPerform;   
+                    inputBinding.Dispatcher.Bind(interaction.Key.OnPerform); 
                     inputBinding.bBound = true;      
                 }
         }
@@ -156,7 +156,7 @@ public class InteractionSet
         
             if(inputBinding.bBound)
             {
-                inputBinding.Dispatcher.OnInputOccurred -= interaction.OnPerform;
+                inputBinding.Dispatcher.UnBind(interaction.OnPerform);
                 inputBinding.bBound = false;   
             }
         }
@@ -168,8 +168,8 @@ public class InteractionSet
             foreach(var binding in inputBindings)
             {
                 if(binding.bBound)
-                {
-                    binding.Dispatcher.OnInputOccurred -= interaction.OnPerform;
+                {                
+                    binding.Dispatcher.UnBind(interaction.OnPerform);
                     binding.bBound = false;   
                 }
             }
@@ -185,7 +185,8 @@ public class InteractionSet
 
             if(binding.bBound)
             {
-                binding.Dispatcher.OnInputOccurred -= interaction.Key.OnPerform;
+
+                binding.Dispatcher.UnBind(interaction.Key.OnPerform);
                 binding.bBound = false;       
             }
         }
@@ -199,7 +200,7 @@ public class InteractionSet
             {
                 if(binding.bBound)
                 {
-                    binding.Dispatcher.OnInputOccurred -= interaction.Key.OnPerform;
+                    binding.Dispatcher.UnBind(interaction.Key.OnPerform);
                     binding.bBound = false;
                 }
             } 

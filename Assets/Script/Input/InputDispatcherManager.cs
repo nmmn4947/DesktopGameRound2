@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using UnityEngine;
+using System;
 
 public class InputDispatcherManager
 {
@@ -17,13 +17,29 @@ public class InputDispatcherManager
     
     public void Enable(InputActionType Type)
     {
-        Debug.Log("Enter Enable : " + Type);
-
         if(Dispatchers.TryGetValue(Type, out InputDispatcher inputDispatcher))
             inputDispatcher.Enable();
         else
             if(HoldingDispatchers.TryGetValue(Type, out InputDispatcher holdingDispatcher))
                 holdingDispatcher.Enable();
+    }
+
+    public void Bind(InputActionType Type, Action BoundFunction)
+    {
+        if(Dispatchers.TryGetValue(Type, out InputDispatcher inputDispatcher))
+            inputDispatcher.Bind(BoundFunction);
+        else
+            if(HoldingDispatchers.TryGetValue(Type, out InputDispatcher holdingDispatcher))
+                holdingDispatcher.Bind(BoundFunction);
+    }
+
+    public void UnBind(InputActionType Type, Action BoundFunction)
+    {
+        if(Dispatchers.TryGetValue(Type, out InputDispatcher inputDispatcher))
+            inputDispatcher.UnBind(BoundFunction);
+        else
+            if(HoldingDispatchers.TryGetValue(Type, out InputDispatcher holdingDispatcher))
+                holdingDispatcher.UnBind(BoundFunction);
     }
 
     public void Update()
@@ -52,8 +68,6 @@ public class InputDispatcherManager
 
     public InputDispatcher AddDispatcher(InputActionType Type)
     {
-        Debug.Log("Add Dispatcher : " + Type);
-
         if(InputActionGroups.Types.Contains(Type))
         {
             if(Dispatchers.ContainsKey(Type))
@@ -72,8 +86,6 @@ public class InputDispatcherManager
 
             var dispatcher = new HoldingInputDispatcher(Type);
             HoldingDispatchers.Add(Type, dispatcher);
-
-            Debug.Log("Add Holding Dispatcher : " + Type);
 
             return dispatcher;            
         }
@@ -96,24 +108,26 @@ public class InputDispatcherManager
     {
         if(Dispatchers.TryGetValue(Type, out var inputDispatcher))
         {
+            if(0 < inputDispatcher.BindCount)
+                return;
+
             inputDispatcher.Disable();
 
             if(inputDispatcher.Dispose())
                 Dispatchers.Remove(Type);
-
-            Debug.Log("Remove Dispatcher : " + Type);
 
             return;
         }
             
         if(HoldingDispatchers.TryGetValue(Type, out var inputHoldingDispatcher))
         {
+            if(0 < inputHoldingDispatcher.BindCount)
+                return;
+
             inputHoldingDispatcher.Disable();
 
             if(inputHoldingDispatcher.Dispose())
-                HoldingDispatchers.Remove(Type);   
-                
-            Debug.Log("Remove Dispatcher : " + Type);          
+                HoldingDispatchers.Remove(Type);    
         }
     }
 }
