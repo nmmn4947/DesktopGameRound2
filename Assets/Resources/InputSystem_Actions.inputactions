@@ -93,7 +93,7 @@
                     "name": "",
                     "id": "7747c28f-a8c5-43da-80ee-63b25272d248",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Hold(duration=0.2)",
+                    "interactions": "Hold(duration=0.1)",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "LeftMouseHolding",
