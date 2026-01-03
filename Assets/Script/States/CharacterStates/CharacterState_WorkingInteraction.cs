@@ -9,18 +9,22 @@ public class CharacterState_WorkingInteraciton : CharacterStateBase
     
     public override void Enter()
     {
+        List<(InteractionBase, InteractionType)> interactions = new List<(InteractionBase, InteractionType)>()
+        {   (new Interaction_WorkingInteraction_Grabbing(Owner), InteractionType.Generic),
+            (new Interaction_WorkingInteraction_EarningMoney(Owner), InteractionType.Generic) };
+
         if(Owner == null)
             return;
 
-        CharacterInteractionManager manager = Owner.GetComponent<CharacterInteractionManager>();
+        var manager = Owner.GetComponent<CharacterInteractionManager>();
 
         if(manager != null)
-            manager.ChangeInteractions(null);  
-
-        Owner.GetComponent<FocusedHandlerManager>()?.ChangeHandler(new CharacterFocusedHandler(Owner));
+        {
+            manager.ChangeInteractions(new InteractionSet(interactions));  
+            manager.GenericEnableAll();   
+        }
     }
     public override void Update()
     {   }
-    public override void Exit()
-    {   }
+    public override void Exit() => Owner.GetComponent<CharacterInteractionManager>()?.DisableAll();
 }

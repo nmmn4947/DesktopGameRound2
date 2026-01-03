@@ -13,6 +13,8 @@ public class GameState_WorkingInteraction : GameStateBase
         dispatcherType = new List<InputActionType>
         {
             InputActionType.eLeftMousePressed,
+            InputActionType.eLeftMouseHolding,
+            InputActionType.eRightMousePressed,
         };
 
         FocusedObjectManager.Instance()?.Enable();

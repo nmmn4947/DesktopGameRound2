@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
 
         FocusedObjectManager_ = FocusedObjectManager.Instance();
         FocusedObjectManager_.Enable();
+
+        MouseUtil.MouseFollowUtil.InitializeCamera();
     }
 
     // Update is called once per frame

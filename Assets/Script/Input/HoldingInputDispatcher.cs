@@ -1,3 +1,4 @@
+using System;
 using UnityEngine.InputSystem;
 
 public sealed class HoldingInputDispatcher : InputDispatcher
@@ -20,8 +21,14 @@ public sealed class HoldingInputDispatcher : InputDispatcher
 
     protected override void OnPerformed(InputAction.CallbackContext context)
     {
-        base.OnPerformed(context);
-
         bHolding = !bHolding;
+
+        if(bHolding)
+            OnEntered(context);
+
+        base.OnPerformed(context);
+        
+        if(!bHolding)
+            OnExited(context);           
     }
 }

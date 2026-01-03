@@ -85,7 +85,7 @@ public sealed class FocusedObjectManager
         if(!bBound)
         {
             Debug.Log("Focused Object Enable");
-            BoundDispatcher.Bind(SetFocusedObject);
+            BoundDispatcher.Bind(null, SetFocusedObject, null);
             bBound = true;   
         }
     }
@@ -96,7 +96,7 @@ public sealed class FocusedObjectManager
         if(bBound)
         {
             Debug.Log("Focused Object Disable");
-            BoundDispatcher.UnBind(SetFocusedObject);
+            BoundDispatcher.Unbind(null, SetFocusedObject, null);
             bBound = false;   
         }
     }

@@ -31,8 +31,10 @@ public abstract class InteractionBase_MultiInput : InteractionBase
 
         Owner = owner;
     }
-    public abstract void OnPerform();
 
+    public virtual void OnEnter(){}
+    public abstract void OnPerform();
+    public virtual void OnExit(){}
     private bool IsValidPerform()
     {
         foreach(HoldingInputDispatcher dispatcher in Dispatchers)

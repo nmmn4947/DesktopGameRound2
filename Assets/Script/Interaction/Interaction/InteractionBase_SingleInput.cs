@@ -8,7 +8,8 @@ public abstract class InteractionBase_SingleInput : InteractionBase
 
     public InteractionBase_SingleInput(GameObject owner) => Owner = owner;
 
+    public virtual void OnEnter(){}
     public abstract void OnPerform();
-
+    public virtual void OnExit(){}
     public void Dispose() => Owner = null;
 }

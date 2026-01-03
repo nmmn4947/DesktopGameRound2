@@ -24,22 +24,22 @@ public class InputDispatcherManager
                 holdingDispatcher.Enable();
     }
 
-    public void Bind(InputActionType Type, Action BoundFunction)
+    public void Bind(InputActionType Type, Action EnterFunction, Action BoundFunction, Action ExitFunction)
     {
         if(Dispatchers.TryGetValue(Type, out InputDispatcher inputDispatcher))
-            inputDispatcher.Bind(BoundFunction);
+            inputDispatcher.Bind(EnterFunction, BoundFunction, ExitFunction);
         else
             if(HoldingDispatchers.TryGetValue(Type, out InputDispatcher holdingDispatcher))
-                holdingDispatcher.Bind(BoundFunction);
+                holdingDispatcher.Bind(EnterFunction, BoundFunction, ExitFunction);
     }
 
-    public void UnBind(InputActionType Type, Action BoundFunction)
+    public void UnBind(InputActionType Type, Action EnterFunction, Action BoundFunction, Action ExitFunction)
     {
         if(Dispatchers.TryGetValue(Type, out InputDispatcher inputDispatcher))
-            inputDispatcher.UnBind(BoundFunction);
+            inputDispatcher.Unbind(EnterFunction, BoundFunction, ExitFunction);
         else
             if(HoldingDispatchers.TryGetValue(Type, out InputDispatcher holdingDispatcher))
-                holdingDispatcher.UnBind(BoundFunction);
+                holdingDispatcher.Unbind(EnterFunction, BoundFunction, ExitFunction);
     }
 
     public void Update()
