@@ -21,14 +21,14 @@ public sealed class HoldingInputDispatcher : InputDispatcher
 
     protected override void OnPerformed(InputAction.CallbackContext context)
     {
-        bHolding = !bHolding;
-
-        if(bHolding)
-            OnEntered(context);
-
+        OnEntered(context);
         base.OnPerformed(context);
-        
-        if(!bHolding)
-            OnExited(context);           
+        bHolding = true;
+    }
+
+    protected override void OnExited(InputAction.CallbackContext context)
+    {
+        base.OnExited(context);
+        bHolding = false;
     }
 }

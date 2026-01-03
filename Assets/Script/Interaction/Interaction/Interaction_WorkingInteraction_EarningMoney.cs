@@ -5,7 +5,7 @@ public sealed class Interaction_WorkingInteraction_EarningMoney : InteractionBas
     public Interaction_WorkingInteraction_EarningMoney(GameObject owner)
         :base(owner)
     {
-        Type = InputActionType.eRightMousePressed;
+        Type = InputActionType.eLeftMousePressed;
     }
 
     public override void OnPerform()

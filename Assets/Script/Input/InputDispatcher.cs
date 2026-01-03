@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputDispatcher
@@ -29,6 +28,7 @@ public class InputDispatcher
         {
             Handle.Enable();
             Handle.Input.performed += OnPerformed;   
+            Handle.Input.canceled += OnExited;   
             bBound = true;
         }
     }
@@ -44,6 +44,7 @@ public class InputDispatcher
         if(bBound)
         {
             Handle.Input.performed -= OnPerformed;
+            Handle.Input.canceled -= OnExited;
             Handle.Disable();   
             bBound = false;
         }
