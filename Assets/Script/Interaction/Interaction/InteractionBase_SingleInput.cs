@@ -11,5 +11,5 @@ public abstract class InteractionBase_SingleInput : InteractionBase
     public virtual void OnEnter(){}
     public abstract void OnPerform();
     public virtual void OnExit(){}
-    public void Dispose() => Owner = null;
+    public virtual void Dispose() => Owner = null;
 }

@@ -50,7 +50,7 @@ public abstract class InteractionBase_MultiInput : InteractionBase
         bValidPerform = IsValidPerform();
     }
 
-    public void Dispose()
+    public virtual void Dispose()
     {
         Owner = null;
         Dispatchers.Clear();

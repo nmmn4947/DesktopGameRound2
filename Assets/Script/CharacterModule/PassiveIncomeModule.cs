@@ -17,7 +17,7 @@ public class PassiveIncomeModule : CharacterModule
             throw new ArgumentException("Failed to load money manger");
 
         UpdatePassiveConfiguration();
-        manager.MoneyConfiguration.OnConfigurationChanged += UpdatePassiveConfiguration;
+        manager.MoneyConfiguration.OnPassiveConfigurationChanged += UpdatePassiveConfiguration;
 
         Timer = 0;
     }
@@ -42,7 +42,7 @@ public class PassiveIncomeModule : CharacterModule
 
     public void Dispose()
     {
-        manager.MoneyConfiguration.OnConfigurationChanged -= UpdatePassiveConfiguration;
+        manager.MoneyConfiguration.OnPassiveConfigurationChanged -= UpdatePassiveConfiguration;
         manager = null;
     }
 }

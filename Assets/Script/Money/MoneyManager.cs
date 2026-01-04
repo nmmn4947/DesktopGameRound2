@@ -6,12 +6,16 @@ public class MoneyConfiguration
     public float PassiveIncomeInterval {get; private set; }
     public int PassiveIncomeAmount {get; private set; }
 
-    public event Action OnConfigurationChanged;
+    public int ActiveIncomeAmount {get; private set; }
+
+    public event Action OnPassiveConfigurationChanged;
+    public event Action OnActiveConfigurationChanged;
 
     public MoneyConfiguration()
     {
         PassiveIncomeInterval = 1.0f;
         PassiveIncomeAmount = 10;
+        ActiveIncomeAmount = 5;
     }
 
     public void SetPassiveIncome(int amount, float interval)
@@ -19,7 +23,14 @@ public class MoneyConfiguration
         PassiveIncomeAmount = amount;
         PassiveIncomeInterval = interval;
 
-        OnConfigurationChanged?.Invoke();
+        OnPassiveConfigurationChanged?.Invoke();
+    }
+
+    public void SetActiveIncome(int amount)
+    {
+        ActiveIncomeAmount = amount;
+
+        OnActiveConfigurationChanged?.Invoke();
     }
 }
 
