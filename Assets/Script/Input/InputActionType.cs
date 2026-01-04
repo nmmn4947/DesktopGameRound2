@@ -9,4 +9,10 @@ public enum InputActionType
     // holding key input actions
     // mouse 
     eLeftMouseHold,
+
+    // keyboard
+    eKeyboardWHold,
+    eKeyboardAHold,
+    eKeyboardSHold,
+    eKeyboardDHold,
 }

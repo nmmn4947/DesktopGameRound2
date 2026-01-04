@@ -16,6 +16,42 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "KeyboardWHold",
+                    "type": "Button",
+                    "id": "14c19804-935b-4d3a-98ca-4b1726fe898a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "KeyboardAHold",
+                    "type": "Button",
+                    "id": "d6c19a36-3239-4c5a-b3ff-eef807d5196a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "KeyboardSHold",
+                    "type": "Button",
+                    "id": "6bb4ccc5-e804-4f5c-a14a-4a99320f318a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "KeyboardDHold",
+                    "type": "Button",
+                    "id": "150317d8-8743-476d-bf39-1c68f0df1d89",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "LeftMouseTapped",
                     "type": "Button",
                     "id": "f27525d1-709f-4a20-9a09-d1b0aeb4e144",
@@ -43,6 +79,50 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "LeftMouseHold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "460ad34a-9a61-404d-8a8d-6597f9f58990",
+                    "path": "<Keyboard>/w",
+                    "interactions": "Hold(duration=0.01)",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "KeyboardWHold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a60b02ad-6e26-4fbf-b35c-aa00ebd13978",
+                    "path": "<Keyboard>/a",
+                    "interactions": "Hold(duration=0.01)",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "KeyboardAHold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8016ce1e-9880-4b36-a3a6-e016f313988a",
+                    "path": "<Keyboard>/s",
+                    "interactions": "Hold(duration=0.01)",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "KeyboardSHold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "96aed6d8-365e-44bc-a5d7-af431148cb0d",
+                    "path": "<Keyboard>/d",
+                    "interactions": "Hold(duration=0.01)",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "KeyboardDHold",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

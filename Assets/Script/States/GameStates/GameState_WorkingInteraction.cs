@@ -15,6 +15,11 @@ public class GameState_WorkingInteraction : GameStateBase
             InputActionType.eLeftMousePressed,  //  for seting focused object   - generic
             InputActionType.eLeftMouseTapped,   //  for earning coin            - focused object (character state)
             InputActionType.eLeftMouseHold,     //  for following               - focused object (character state)
+
+            InputActionType.eKeyboardWHold,
+            InputActionType.eKeyboardAHold,
+            InputActionType.eKeyboardSHold,
+            InputActionType.eKeyboardDHold,
         };
 
         InputManager.Instance().SetInputDispatcherSet(dispatcherType);

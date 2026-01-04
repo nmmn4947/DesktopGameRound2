@@ -38,10 +38,10 @@ public sealed class InputRegistry
                 Handles.Add(InputActionType.eLeftMouseHold, new InputHandle(map.FindAction("LeftMouseHold")));
                 //Handles.Add(InputActionType.eRightMouseHolding, new InputHandle(map.FindAction("RightMouseHolding")));
 
-                //Handles.Add(InputActionType.eKeyboardWHolding, new InputHandle(map.FindAction("KeyboardWHolding")));
-                //Handles.Add(InputActionType.eKeyboardAHolding, new InputHandle(map.FindAction("KeyboardAHolding")));
-                //Handles.Add(InputActionType.eKeyboardSHolding, new InputHandle(map.FindAction("KeyboardSHolding")));
-                //Handles.Add(InputActionType.eKeyboardDHolding, new InputHandle(map.FindAction("KeyboardDHolding")));
+                Handles.Add(InputActionType.eKeyboardWHold, new InputHandle(map.FindAction("KeyboardWHold")));
+                Handles.Add(InputActionType.eKeyboardAHold, new InputHandle(map.FindAction("KeyboardAHold")));
+                Handles.Add(InputActionType.eKeyboardSHold, new InputHandle(map.FindAction("KeyboardSHold")));
+                Handles.Add(InputActionType.eKeyboardDHold, new InputHandle(map.FindAction("KeyboardDHold")));
             }
         }
     }

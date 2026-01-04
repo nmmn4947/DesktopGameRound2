@@ -11,5 +11,10 @@ public static class InputActionGroups
     public static readonly HashSet<InputActionType> HoldingTypes = new()
     {
         InputActionType.eLeftMouseHold,
+
+        InputActionType.eKeyboardWHold,
+        InputActionType.eKeyboardAHold,
+        InputActionType.eKeyboardSHold,
+        InputActionType.eKeyboardDHold,
     };
 }

@@ -16,15 +16,27 @@ public class CharacterState_WorkingInteraciton : CharacterStateBase
         var interaction_Grabbing = new Interaction_WorkingInteraction_Grabbing(Owner);
         var interaction_EarningMoney = new Interaction_WorkingInteraction_EarningMoney(Owner);
 
+        var interaction_moveforward = new Interaction_WorkingInteraction_MoveForward(Owner);
+        var interaction_movebackward = new Interaction_WorkingInteraction_MoveBackward(Owner);
+        var interaction_rotateleft = new Interaction_WorkingInteraction_RotateLeft(Owner);
+        var interaction_rotateright = new Interaction_WorkingInteraction_RotateRight(Owner);
+
         // create list of interactions 
         List<(InteractionBase, InteractionType)> interactions = new List<(InteractionBase, InteractionType)>()
         {   (interaction_Grabbing, InteractionType.FocusedObject),
-            (interaction_EarningMoney, InteractionType.FocusedObject) };
+            (interaction_moveforward, InteractionType.FocusedObject),
+            (interaction_movebackward, InteractionType.FocusedObject),
+            (interaction_rotateleft, InteractionType.FocusedObject),
+            (interaction_rotateright, InteractionType.FocusedObject) };
 
         // create list of focused interactions
         List<InteractionBase> focusedInteractions = new()
         {   interaction_Grabbing,
-            interaction_EarningMoney };
+            interaction_EarningMoney,
+            interaction_moveforward,
+            interaction_movebackward,
+            interaction_rotateleft,
+            interaction_rotateright, };
 
         
         var manager = Owner.GetComponent<CharacterInteractionManager>();
