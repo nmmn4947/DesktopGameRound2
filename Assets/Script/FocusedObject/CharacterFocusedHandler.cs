@@ -6,10 +6,10 @@ public class CharacterFocusedHandler : FocusedHandler
     :base(owner) {    }
 
     public override void Focused() =>
-        Owner?.GetComponent<CharacterStateManager>()
-            ?.ChangeCharacterState(CharacterStateType.eWorking_Focused);
+        Owner?.GetComponent<CharacterInteractionManager>()
+            ?.EnableFocusedInteractions();
 
     public override void UnFocused() =>
-        Owner?.GetComponent<CharacterStateManager>()
-            ?.ChangeCharacterState(CharacterStateType.eWorking_Interaction);
+        Owner?.GetComponent<CharacterInteractionManager>()
+            ?.DisableFocusedInteractions();
 }

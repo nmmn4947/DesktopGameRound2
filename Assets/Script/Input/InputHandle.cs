@@ -32,6 +32,16 @@ public sealed class InputHandle
             Input.Disable();
     }
 
+    public bool IsValidToDispose()
+    {
+        if(Count == 0 && !Input.enabled)
+            return true;
+        
+        
+        Debug.Log("Invalid dispose call : have to check where dispatcher didn't unbind");
+        return false;
+    }
+
     public bool Dispose()
     {
         if(Count == 0 && !Input.enabled)

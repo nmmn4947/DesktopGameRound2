@@ -11,9 +11,7 @@ public class GameState_WorkingIdle : GameStateBase
         // just initialize the list of dispatcher type
         // - the game state manager automatically change the input dispatcher list
         dispatcherType = new List<InputActionType>
-        {
-            InputActionType.eKeyboardWPressed
-        };
+        {   };
     }
     public override void Update()
     {

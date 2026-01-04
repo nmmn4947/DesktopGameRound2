@@ -5,7 +5,7 @@ public sealed class Interaction_WorkingInteraction_Grabbing : InteractionBase_Si
     public Interaction_WorkingInteraction_Grabbing(GameObject owner)
         :base(owner)
     {
-        Type = InputActionType.eLeftMouseHolding;
+        Type = InputActionType.eLeftMouseHold;
     }
 
     private Vector3 Offset;

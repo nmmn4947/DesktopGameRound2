@@ -1,10 +1,11 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public sealed class CharacterInteractionManager : MonoBehaviour
 {
     private InteractionSet CurrInteractions = null;
-    private InteractionBase FocusedObjectInteraction = null;
+    private List<InteractionBase> FocusedInteractions = null;
     private bool bBound = false;
 
     // change interaction set
@@ -17,23 +18,25 @@ public sealed class CharacterInteractionManager : MonoBehaviour
             CurrInteractions.Dispose();
         }
 
-        FocusedObjectInteraction = null;
+        if(FocusedInteractions != null)
+            FocusedInteractions.Clear();
+        
 
         CurrInteractions = interactionSet;
         GenericEnableAll();
     }
 
-    public void SetFocusedObjectInteraction(InteractionBase interaction) => FocusedObjectInteraction = interaction;
+    public void SetFocusedInteractions(List<InteractionBase> interactionSet) => FocusedInteractions = interactionSet;
 
-    public void EnableFocusedObjectInteraction()
-    {
-        if(FocusedObjectInteraction != null)
-            CurrInteractions.Enable(FocusedObjectInteraction);
+    public void EnableFocusedInteractions()
+    {   
+        foreach(var focusedInteraction in FocusedInteractions)
+            CurrInteractions.Enable(focusedInteraction);
     }
-    public void DisableFocusedObjectInteraction() 
+    public void DisableFocusedInteractions() 
     {
-        if(FocusedObjectInteraction != null)
-            CurrInteractions.Disable(FocusedObjectInteraction);
+        foreach(var focusedInteraction in FocusedInteractions)
+            CurrInteractions.Disable(focusedInteraction);
     }
 
     void Update()
@@ -48,7 +51,8 @@ public sealed class CharacterInteractionManager : MonoBehaviour
         {
             CurrInteractions.Dispose();
             CurrInteractions = null;
-            FocusedObjectInteraction = null;
+            FocusedInteractions.Clear();
+            FocusedInteractions = null;
         }
     }
 
@@ -66,6 +70,7 @@ public sealed class CharacterInteractionManager : MonoBehaviour
         if(CurrInteractions != null && bBound)
         {
             CurrInteractions.DisableAll();
+            DisableFocusedInteractions();
             bBound = false;   
         }
     }

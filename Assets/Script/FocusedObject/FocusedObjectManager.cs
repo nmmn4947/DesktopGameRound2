@@ -45,9 +45,8 @@ public sealed class FocusedObjectManager
             // when clicked the same game object, turn the focused off
             if(prev == next)
             {
-                prev?.GetComponent<FocusedHandlerManager>()?.Handler?.UnFocused();
-                FocusedObject = null;
-            
+                //prev?.GetComponent<FocusedHandlerManager>()?.Handler?.UnFocused();
+                //FocusedObject = null;
                 return;   
             }
             

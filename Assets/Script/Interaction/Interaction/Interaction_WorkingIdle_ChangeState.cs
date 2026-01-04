@@ -5,7 +5,7 @@ public sealed class Interaction_WorkingIdle_ChangeState : InteractionBase_Single
     public Interaction_WorkingIdle_ChangeState(GameObject owner)
         :base(owner)
     {
-        Type = InputActionType.eKeyboardWPressed;
+        Type = InputActionType.eLeftMouseTapped;
     }
 
     public override void OnPerform()

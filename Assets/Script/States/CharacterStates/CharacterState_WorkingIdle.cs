@@ -9,20 +9,10 @@ public class CharacterState_WorkingIdle : CharacterStateBase
 
     public override void Enter()
     {
-        List<(InteractionBase, InteractionType)> interactions = new List<(InteractionBase, InteractionType)>()
-        {(new Interaction_WorkingIdle_ChangeState(Owner), InteractionType.Generic) };
-
         if(Owner == null)
             return;
 
-        CharacterInteractionManager manager = Owner.GetComponent<CharacterInteractionManager>();
-
-        if(manager != null)
-        {
-            manager.ChangeInteractions(new InteractionSet(interactions));  
-            manager.GenericEnableAll();
-        }
-
+        Owner.GetComponent<CharacterInteractionManager>()?.ChangeInteractions(null);  
         Owner.GetComponent<FocusedHandlerManager>()?.ChangeHandler(null);
     }
     
@@ -30,7 +20,5 @@ public class CharacterState_WorkingIdle : CharacterStateBase
     {   }
     
     public override void Exit()
-    {
-        Owner.GetComponent<CharacterInteractionManager>()?.DisableAll();  
-    }
+    {   }
 }

@@ -12,9 +12,9 @@ public class GameState_WorkingInteraction : GameStateBase
 
         dispatcherType = new List<InputActionType>
         {
-            InputActionType.eLeftMousePressed,
-            InputActionType.eLeftMouseHolding,
-            InputActionType.eRightMousePressed,
+            InputActionType.eLeftMousePressed,  //  for seting focused object   - generic
+            InputActionType.eLeftMouseTapped,   //  for earning coin            - focused object (character state)
+            InputActionType.eLeftMouseHold,     //  for following               - focused object (character state)
         };
 
         FocusedObjectManager.Instance()?.Enable();

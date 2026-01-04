@@ -5,8 +5,6 @@ public sealed class CharacterStateManager : MonoBehaviour
 {
     private CharacterStateBase CurrState = null;
 
-    private Dictionary<CharacterStateType, CharacterStateBase> CachedStates;
-
     // Delegate for broadcasting when the state is changed
     public event System.Action OnCharacterStateChanged;
     
@@ -18,12 +16,6 @@ public sealed class CharacterStateManager : MonoBehaviour
     {
         Debug.Log("Start - Character State Manager");
 
-        CachedStates = new Dictionary<CharacterStateType, CharacterStateBase>
-        {
-            {CharacterStateType.eWorking_Idle, new CharacterState_WorkingIdle(this.gameObject) },
-            {CharacterStateType.eRestingIdle, new RestingIdleState(this.gameObject) }
-        };
-        
         GameStateManager GSManager = GameStateManager.Instance();
 
         GSManager.OnGameStateChanged += ChangeDefaultCharacterState;
@@ -85,10 +77,7 @@ public sealed class CharacterStateManager : MonoBehaviour
     // change the current character state when a trigger occur
     public void ChangeCharacterState(CharacterStateType NextStateType)
     {
-        CharacterStateBase NextState = null;
-
-        if(!CachedStates.TryGetValue(NextStateType, out NextState))
-            NextState = StateParser.Instance().GetCharacterState(NextStateType, this.gameObject);
+        var NextState = StateParser.Instance().GetCharacterState(NextStateType, this.gameObject);
 
         ChangeCharacterState(NextState);
 

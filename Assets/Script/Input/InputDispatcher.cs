@@ -94,7 +94,7 @@ public class InputDispatcher
 
     public bool Dispose()
     {
-        if(Handle.Dispose())
+        if(Handle.IsValidToDispose())
         {
             OnInputOccurred = null;
             return true;   
