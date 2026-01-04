@@ -13,15 +13,4 @@ public class GameState_WorkingIdle : GameStateBase
         dispatcherType = new List<InputActionType>
         {   };
     }
-    public override void Update()
-    {
-    }
-    public override void Exit()
-    {
-    }
-
-    public override void Dispose()
-    {
-        base.Dispose();
-    }
 }

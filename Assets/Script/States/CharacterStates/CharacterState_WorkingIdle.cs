@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class CharacterState_WorkingIdle : CharacterStateBase
@@ -14,11 +15,7 @@ public class CharacterState_WorkingIdle : CharacterStateBase
 
         Owner.GetComponent<CharacterInteractionManager>()?.ChangeInteractions(null);  
         Owner.GetComponent<FocusedHandlerManager>()?.ChangeHandler(null);
+
+        Modules.Add(new PassiveIncomeModule());
     }
-    
-    public override void Update()
-    {   }
-    
-    public override void Exit()
-    {   }
 }

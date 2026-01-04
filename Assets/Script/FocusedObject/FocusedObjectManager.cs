@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
@@ -83,7 +84,7 @@ public sealed class FocusedObjectManager
     {
         if(!bBound)
         {
-            Debug.Log("Focused Object Enable");
+            BoundDispatcher = InputManager_.InputDispatchers.AddDispatcher(InputActionType.eLeftMousePressed);
             BoundDispatcher.Bind(null, SetFocusedObject, null);
             bBound = true;   
         }
@@ -94,6 +95,7 @@ public sealed class FocusedObjectManager
     {
         if(bBound)
         {
+            ResetFocused();
             Debug.Log("Focused Object Disable");
             BoundDispatcher.Unbind(null, SetFocusedObject, null);
             bBound = false;   

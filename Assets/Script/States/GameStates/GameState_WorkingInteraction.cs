@@ -17,22 +17,9 @@ public class GameState_WorkingInteraction : GameStateBase
             InputActionType.eLeftMouseHold,     //  for following               - focused object (character state)
         };
 
+        InputManager.Instance().SetInputDispatcherSet(dispatcherType);
         FocusedObjectManager.Instance()?.Enable();
-
-        //InputDispatcherSet dispatchers = new InputDispatcherSet_WorkingIdleState();
-
-        //InputManager.Instance().ChangeInputDispatcherSet(dispatchers);
-    }
-    public override void Update()
-    {   }
-
-    public override void Exit()
-    {
-        FocusedObjectManager.Instance()?.Disable();
     }
 
-    public override void Dispose()
-    {
-        base.Dispose();
-    }
+    public override void Exit() => FocusedObjectManager.Instance()?.Disable();
 }

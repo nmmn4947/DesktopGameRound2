@@ -38,9 +38,8 @@ public class CharacterState_WorkingInteraciton : CharacterStateBase
         }
 
         Owner.GetComponent<FocusedHandlerManager>()?.ChangeHandler(new CharacterFocusedHandler(Owner));
+        Modules.Add(new PassiveIncomeModule());
     }
-    public override void Update()
-    {   }
     public override void Exit()
     {
         Owner.GetComponent<FocusedHandlerManager>()?.ChangeHandler(null);

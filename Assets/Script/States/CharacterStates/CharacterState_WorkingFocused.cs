@@ -20,16 +20,11 @@ public class CharacterState_WorkingFocused : CharacterStateBase
     }
     public override void Update()
     {
+        base.Update();
+
         if(Owner == null)
             return;
 
         Owner.transform.position = MouseUtil.MouseFollowUtil.GetMouseFollowPosition(Owner.transform.position) + Offset;
-    }
-    public override void Exit()
-    {   }
-
-    public override void Dispose()
-    {
-        base.Dispose();
     }
 }
