@@ -1,0 +1,86 @@
+using UnityEngine;
+
+namespace OliverBeebe.UnityUtilities.Runtime.Pooling
+{
+    [CreateAssetMenu(menuName = PluginConstants.PluginName + "/Pooling/GameObject Pool")]
+    public class GameObjectPool : ScriptableObjectPool<Poolable>
+    {
+        [SerializeField] private Poolable prefab;
+        [SerializeField] private bool setActiveOnRetrieval;
+
+        private static Transform allParent;
+        private Transform hierarchyParent;
+
+        protected virtual Transform SpawnHierarchyParent() => new GameObject().transform;
+
+        private void Initialize()
+        {
+            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += (from, to) => Clear(); 
+
+            if (allParent == null)
+            {
+                allParent = new GameObject("GameObject Pools").transform;
+            }
+
+            hierarchyParent = SpawnHierarchyParent();
+            hierarchyParent.parent = allParent;
+            hierarchyParent.name = name;
+        }
+
+        protected override Poolable Create()
+        {
+            if (hierarchyParent == null)
+            {
+                Initialize();
+            }
+
+            return Instantiate(prefab, hierarchyParent);
+        }
+
+        protected override void Destroy(Poolable poolable)
+        {
+            if (poolable != null && poolable.gameObject != null)
+            {
+                Destroy(poolable.gameObject);
+            }
+        }
+
+        public override Poolable Retrieve()
+        {
+            var poolable = base.Retrieve();
+
+            poolable.Retrieve();
+            poolable.Returned += OnReturned;
+
+            if (setActiveOnRetrieval)
+            {
+                poolable.gameObject.SetActive(true);
+            }
+
+            return poolable;
+            
+            void OnReturned(Poolable poolable)
+            {
+                if (setActiveOnRetrieval)
+                {
+                    poolable.gameObject.SetActive(false);
+                }
+
+                base.Return(poolable);
+            }
+        }
+
+        public override void Return(Poolable poolable)
+        {
+            poolable.Return();
+        }
+
+        public override void ReturnAll()
+        {
+            foreach (var poolable in ActiveObjects)
+            {
+                poolable.Return();
+            }
+        }
+    }
+}
