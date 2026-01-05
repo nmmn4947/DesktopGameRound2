@@ -13,11 +13,15 @@ public class ToolButtonVisual : MonoBehaviour
     }
     
     [SerializeField] private Image image;
-    [SerializeField] CursorTool cursorTool;
+    [SerializeField] CursorManager _cursorManager;
     
-    private List<ButtonHoverCheck> buttonHoverChecks = new List<ButtonHoverCheck>();
     private RectTransform thisRectTransform;
     private bool isHovering = false;
+    
+    private Slider holdSlider;
+    private bool isHolding = false;
+    private float holdSelectTime = 0.0f;
+    private float holdSelectKeep = 0.0f;
 
     private void Awake()
     {
@@ -31,11 +35,12 @@ public class ToolButtonVisual : MonoBehaviour
     void Start()
     {
         thisRectTransform = GetComponent<RectTransform>();
+        holdSlider = GetComponent<Slider>();
     }
     
     void Update()
     {
-        if (cursorTool.GetIfToolIsSelected())
+        if (_cursorManager.isEquipped)
         {
             image.color = Color.white;
         }
@@ -52,11 +57,17 @@ public class ToolButtonVisual : MonoBehaviour
                 image.color = new Color(image.color.r, image.color.g, image.color.b, 0.25f);
             }
         }
+
+        if (holdSelectTime != 0.0f)
+        {
+            holdSelectKeep += Time.deltaTime;
+            holdSlider.value = Mathf.Lerp(holdSlider.value, 1.0f, holdSelectKeep / holdSelectTime);
+        }
     }
 
     public void SetCurrentToolButtonPosition(RectTransform rectTransform)
     {
-        if (cursorTool.GetIfToolIsSelected())
+        if (_cursorManager.isEquipped)
         {
             return;
         }
@@ -68,5 +79,20 @@ public class ToolButtonVisual : MonoBehaviour
         }
         isHovering = true;
         thisRectTransform.position = rectTransform.position;
+        
+    }
+
+    public void SetHoldSelectActive(float holdDuration)
+    {
+        holdSelectTime = holdDuration;
+        isHolding = true;
+    }
+
+    public void StopHoldSelect()
+    {
+        isHolding = false;
+        holdSelectKeep = 0.0f;
+        holdSelectTime = 0.0f;
+        holdSlider.value = 0.0f;
     }
 }

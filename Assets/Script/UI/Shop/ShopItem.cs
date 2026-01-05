@@ -4,7 +4,7 @@ using UnityEngine;
 public class ShopItem : ScriptableObject
 {
     public string name;
-    private bool isUnlocked = false;
-    public bool GetIsUnlocked(){return isUnlocked;}
+    public bool isTool;
+    public bool updateCost;
     public int cost;
 }
