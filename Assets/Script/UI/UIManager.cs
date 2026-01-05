@@ -11,11 +11,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject settingsButtons;
     [SerializeField] private GameObject fullScreenBlocker;
     [SerializeField] private float fadeTimeTabOff;
-    [SerializeField] private float fadeTimeToolSelect;
-    [SerializeField] private CursorTool cursorTool;
+    //[SerializeField] private float fadeTimeToolSelect;
+    //[SerializeField] private CursorTool cursorTool;
 
     private bool isPrevTabOff;
-    private bool isToolSelect;
+    //private bool isToolSelect;
     
     public event Action<float> tabOn;
     public event Action<float> tabOff;
@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         isPrevTabOff = Transparent3D.instance.isTabOff;
-        isToolSelect = cursorTool.GetIfToolIsSelected();
+        //isToolSelect = cursorTool.GetIfToolIsSelected();
     }
 
     // Update is called once per frame
@@ -58,7 +58,7 @@ public class UIManager : MonoBehaviour
                 tabOn?.Invoke(fadeTimeTabOff);
             }
             
-            if (cursorTool.GetIfToolIsSelected())
+            /*if (cursorTool.GetIfToolIsSelected())
             {
                 if (isToolSelect != cursorTool.GetIfToolIsSelected())
                 {
@@ -73,7 +73,7 @@ public class UIManager : MonoBehaviour
                     isToolSelect = cursorTool.GetIfToolIsSelected();
                     UnselectedTools?.Invoke(fadeTimeToolSelect);
                 }
-            }
+            }*/
         }
     }
 
