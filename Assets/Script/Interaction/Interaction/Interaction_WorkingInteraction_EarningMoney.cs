@@ -19,7 +19,7 @@ public sealed class Interaction_WorkingInteraction_EarningMoney : InteractionBas
 
     public override void OnPerform()
     {
-        MoneyManager.Instance().AddMoney(IncomeAmount);
+        MoneyManager.Instance().AddActiveIncome(IncomeAmount, Owner.transform.position);
         Debug.Log("Current Balance is : " + MoneyManager.Instance().GetBalance());
     }
 

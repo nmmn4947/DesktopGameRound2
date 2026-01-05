@@ -16,6 +16,6 @@ public class CharacterState_WorkingIdle : CharacterStateBase
         Owner.GetComponent<CharacterInteractionManager>()?.ChangeInteractions(null);  
         Owner.GetComponent<FocusedHandlerManager>()?.ChangeHandler(null);
 
-        Modules.Add(new PassiveIncomeModule());
+        Modules.Add(new PassiveIncomeModule(Owner));
     }
 }

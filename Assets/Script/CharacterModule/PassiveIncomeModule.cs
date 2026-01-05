@@ -9,7 +9,8 @@ public class PassiveIncomeModule : CharacterModule
     private float Interval;
     private int Amount;
 
-    public PassiveIncomeModule()
+    public PassiveIncomeModule(GameObject owner)
+        :base(owner)
     {
         manager = MoneyManager.Instance();
 
@@ -22,14 +23,14 @@ public class PassiveIncomeModule : CharacterModule
         Timer = 0;
     }
 
-    public void Update(float dt)
+    public override void Update(float dt)
     { 
         Timer += dt;
         
         if (Interval <= Timer)
         {
             Timer -= Interval;
-            manager.AddMoney(Amount);
+            manager.AddPassiveIncome(Amount, Owner.transform.position);
             Debug.Log("Interval income : " + Amount + " , now Current Balance : " + manager?.GetBalance());
         }
     }
@@ -40,8 +41,10 @@ public class PassiveIncomeModule : CharacterModule
         Amount = manager.MoneyConfiguration.PassiveIncomeAmount;
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
+        base.Dispose();
+
         manager.MoneyConfiguration.OnPassiveConfigurationChanged -= UpdatePassiveConfiguration;
         manager = null;
     }

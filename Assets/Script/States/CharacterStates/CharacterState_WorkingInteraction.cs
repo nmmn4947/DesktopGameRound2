@@ -24,6 +24,7 @@ public class CharacterState_WorkingInteraciton : CharacterStateBase
         // create list of interactions 
         List<(InteractionBase, InteractionType)> interactions = new List<(InteractionBase, InteractionType)>()
         {   (interaction_Grabbing, InteractionType.FocusedObject),
+            (interaction_EarningMoney, InteractionType.FocusedObject),
             (interaction_moveforward, InteractionType.FocusedObject),
             (interaction_movebackward, InteractionType.FocusedObject),
             (interaction_rotateleft, InteractionType.FocusedObject),
@@ -50,7 +51,7 @@ public class CharacterState_WorkingInteraciton : CharacterStateBase
         }
 
         Owner.GetComponent<FocusedHandlerManager>()?.ChangeHandler(new CharacterFocusedHandler(Owner));
-        Modules.Add(new PassiveIncomeModule());
+        Modules.Add(new PassiveIncomeModule(Owner));
     }
     public override void Exit()
     {

@@ -1,6 +1,6 @@
 // update the currency configuration later
 using System;
-
+using UnityEngine;
 public class MoneyConfiguration
 {
     public float PassiveIncomeInterval {get; private set; }
@@ -48,6 +48,9 @@ public class MoneyManager
     public MoneyConfiguration MoneyConfiguration { get; private set; }
     private MoneyData MoneyData;
 
+    public Action<Vector3, int> OnPassiveIncome;
+    public Action<Vector3, int> OnActiveIncome;
+
     public static MoneyManager Instance()
     {
         if(Instance_ != null)
@@ -64,9 +67,19 @@ public class MoneyManager
         MoneyConfiguration = new();
         MoneyData = new();
     }
-
-    public void AddMoney(int amount) => MoneyData.Balance += amount;
     
+    public void AddActiveIncome(int amount, Vector3 position)
+    {
+        MoneyData.Balance += amount;
+        OnActiveIncome?.Invoke(position, amount);
+    }
+
+    public void AddPassiveIncome(int amount, Vector3 position)
+    {
+        MoneyData.Balance += amount;
+        OnPassiveIncome?.Invoke(position, amount);
+    }
+
     public bool SpendMoney(int amount)
     {
         if(MoneyData.Balance < amount)
