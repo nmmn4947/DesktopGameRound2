@@ -13,7 +13,8 @@ public class ToolButtonVisual : MonoBehaviour
     }
     
     [SerializeField] private Image image;
-    [SerializeField] CursorManager _cursorManager;
+    [SerializeField] private CursorManager _cursorManager;
+    [SerializeField] private float fixedHoldDuration;
     
     private RectTransform thisRectTransform;
     private bool isHovering = false;
@@ -81,7 +82,13 @@ public class ToolButtonVisual : MonoBehaviour
         thisRectTransform.position = rectTransform.position;
         
     }
-
+    
+    public void SetHoldSelectActive()
+    {
+        holdSelectTime = fixedHoldDuration;
+        isHolding = true;
+    }
+    
     public void SetHoldSelectActive(float holdDuration)
     {
         holdSelectTime = holdDuration;

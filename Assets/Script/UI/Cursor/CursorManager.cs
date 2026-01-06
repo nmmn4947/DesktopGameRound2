@@ -9,6 +9,8 @@ public class CursorManager : MonoBehaviour
     [SerializeField] private Texture2D defaultCursorTexture;
     [SerializeField] private Texture2D defaultClickedCursorTexture;
     
+    private CursorBehavior currentBehavior;
+    
     [HideInInspector]
     public bool isEquipped = false;
 
@@ -31,13 +33,34 @@ public class CursorManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (currentBehavior != null)
         {
-            Cursor.SetCursor(defaultClickedCursorTexture, Vector2.zero, CursorMode.Auto);
+            currentBehavior.CursorLogic();
         }
         else
         {
-            Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.Auto); // no click
+            //default cursor behavior
+            //WAIT
+            //This might be Universal Cursor Behavior, Like runnin both default and not default
+            //guess that depends
+            if (Input.GetMouseButton(0))
+            {
+                Cursor.SetCursor(defaultClickedCursorTexture, Vector2.zero, CursorMode.Auto);
+            }
+            else
+            {
+                Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.Auto); // no click
+            }
         }
+    }
+
+    public void EquipItem(ShopItem item)
+    {
+        currentBehavior = item.behaviour;
+    }
+    
+    public void UnequipCurrentItem()
+    {
+        currentBehavior = null;
     }
 }

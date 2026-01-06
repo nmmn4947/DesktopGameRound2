@@ -7,4 +7,5 @@ public class ShopItem : ScriptableObject
     public bool isTool;
     public bool updateCost;
     public int cost;
+    public CursorBehavior behaviour;
 }

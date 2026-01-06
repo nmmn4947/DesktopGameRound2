@@ -7,7 +7,9 @@ public class ButtonHoverCheck : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public bool IsHovering { get; private set; }
     
     private RectTransform rectTransform;
-
+    private ShopItemBehavior thisItem;
+    private ShopItem itemData;
+    
     public bool buttonIsDown;
     
     // Should I get CursorManager to check isEquipped?
@@ -15,18 +17,18 @@ public class ButtonHoverCheck : MonoBehaviour, IPointerEnterHandler, IPointerExi
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
+        thisItem = GetComponent<ShopItemBehavior>();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //ToolButtonVisual.GetInstance().SetCurrentToolButtonPosition(rectTransform);
+        ToolButtonVisual.GetInstance().SetCurrentToolButtonPosition(rectTransform);
         IsHovering = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        //Selected item shouldn't be triggered like this anymore?
-        //ToolButtonVisual.GetInstance().SetCurrentToolButtonPosition(null);
+        ToolButtonVisual.GetInstance().SetCurrentToolButtonPosition(null);
         IsHovering = false;
     }
 
@@ -34,10 +36,32 @@ public class ButtonHoverCheck : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         // get ShopItemBehavior, then find out the type of the button, if it is a hold type use a hold in ToolButtonVisual!
         buttonIsDown = true;
+        if (!thisItem.GetIsUnlocked())
+        {
+            ToolButtonVisual.GetInstance().SetHoldSelectActive();
+            return;
+        }
+
+        if (itemData.isTool)
+        {
+            ToolButtonVisual.GetInstance().SetHoldSelectActive();
+            return;
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         buttonIsDown = false;
+        if (!thisItem.GetIsUnlocked())
+        {
+            ToolButtonVisual.GetInstance().SetHoldSelectActive();
+            return;
+        }
+
+        if (itemData.isTool)
+        {
+            ToolButtonVisual.GetInstance().SetHoldSelectActive();
+            return;
+        }
     }
 }
