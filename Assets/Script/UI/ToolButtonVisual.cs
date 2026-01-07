@@ -62,7 +62,8 @@ public class ToolButtonVisual : MonoBehaviour
         if (holdSelectTime != 0.0f)
         {
             holdSelectKeep += Time.deltaTime;
-            holdSlider.value = Mathf.Lerp(holdSlider.value, 1.0f, holdSelectKeep / holdSelectTime);
+            holdSlider.value = Mathf.Lerp(0.0f, 1.0f, holdSelectKeep / holdSelectTime);
+            //Debug.Log(holdSelectKeep / holdSelectTime);
         }
     }
 
@@ -87,6 +88,7 @@ public class ToolButtonVisual : MonoBehaviour
     {
         holdSelectTime = fixedHoldDuration;
         isHolding = true;
+        //Debug.Log("holdSelectTime: " + holdSelectTime);
     }
     
     public void SetHoldSelectActive(float holdDuration)

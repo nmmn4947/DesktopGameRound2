@@ -3,9 +3,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ShopItem", menuName = "Scriptable Objects/ShopItem")]
 public class ShopItem : ScriptableObject
 {
-    public string name;
+    [Header("Default Variable")]
+    public string displayName;
     public bool isTool;
     public bool updateCost;
     public int cost;
-    public CursorBehavior behaviour;
+    [SerializeField] private CursorBehavior behaviour;
+    public CursorBehavior _behaviour => behaviour;
+    
+    
+    [Header("Runtime Variable")]
+    public bool isUnlockedInShop;
 }

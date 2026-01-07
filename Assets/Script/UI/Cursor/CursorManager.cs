@@ -35,7 +35,7 @@ public class CursorManager : MonoBehaviour
     {
         if (currentBehavior != null)
         {
-            currentBehavior.CursorLogic();
+            currentBehavior.CursorLogic(this);
         }
         else
         {
@@ -56,7 +56,7 @@ public class CursorManager : MonoBehaviour
 
     public void EquipItem(ShopItem item)
     {
-        currentBehavior = item.behaviour;
+        currentBehavior = item._behaviour;
     }
     
     public void UnequipCurrentItem()

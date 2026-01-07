@@ -4,20 +4,19 @@ using UnityEngine.EventSystems;
 
 public class ButtonHoverCheck : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
+    [SerializeField] private ShopItem itemData;
+    
     public bool IsHovering { get; private set; }
-    
+    public bool buttonIsDown { get; private set; }
+
     private RectTransform rectTransform;
-    private ShopItemBehavior thisItem;
-    private ShopItem itemData;
     
-    public bool buttonIsDown;
     
     // Should I get CursorManager to check isEquipped?
     
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-        thisItem = GetComponent<ShopItemBehavior>();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -36,7 +35,7 @@ public class ButtonHoverCheck : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         // get ShopItemBehavior, then find out the type of the button, if it is a hold type use a hold in ToolButtonVisual!
         buttonIsDown = true;
-        if (!thisItem.GetIsUnlocked())
+        if (!itemData.isUnlockedInShop)
         {
             ToolButtonVisual.GetInstance().SetHoldSelectActive();
             return;
@@ -52,15 +51,15 @@ public class ButtonHoverCheck : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public void OnPointerUp(PointerEventData eventData)
     {
         buttonIsDown = false;
-        if (!thisItem.GetIsUnlocked())
+        if (!itemData.isUnlockedInShop)
         {
-            ToolButtonVisual.GetInstance().SetHoldSelectActive();
+            ToolButtonVisual.GetInstance().StopHoldSelect();
             return;
         }
 
         if (itemData.isTool)
         {
-            ToolButtonVisual.GetInstance().SetHoldSelectActive();
+            ToolButtonVisual.GetInstance().StopHoldSelect();
             return;
         }
     }

@@ -2715,7 +2715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c2a2d854dca3c4e926aa04e78d08f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonIsDown: 0
+  itemData: {fileID: 0}
 --- !u!1 &497063344324475549
 GameObject:
   m_ObjectHideFlags: 0
@@ -3380,9 +3380,8 @@ GameObject:
   - component: {fileID: 5013482405735060480}
   - component: {fileID: 2624876653320730279}
   - component: {fileID: 5013482405735060481}
-  - component: {fileID: 5013482405735060482}
   m_Layer: 5
-  m_Name: ShopItem_Flick
+  m_Name: ShopItem_Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3666,7 +3665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c2a2d854dca3c4e926aa04e78d08f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonIsDown: 0
+  itemData: {fileID: 11400000, guid: 94e75ae693d71a34e945f4c13d58908b, type: 2}
 --- !u!1 &2666536180567764912
 GameObject:
   m_ObjectHideFlags: 0
@@ -3978,7 +3977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c2a2d854dca3c4e926aa04e78d08f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonIsDown: 0
+  itemData: {fileID: 0}
 --- !u!222 &3331251690593217215
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4422,7 +4421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c2a2d854dca3c4e926aa04e78d08f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonIsDown: 0
+  itemData: {fileID: 0}
 --- !u!1 &4142300432820633120
 GameObject:
   m_ObjectHideFlags: 0
@@ -4873,18 +4872,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5013482405735060482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1989664714101729228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66edb0b013259f64484df8d006f9bd64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5014976522206207784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4897,7 +4884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c2a2d854dca3c4e926aa04e78d08f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonIsDown: 0
+  itemData: {fileID: 0}
 --- !u!1 &5078797460022483984
 GameObject:
   m_ObjectHideFlags: 0
@@ -5380,7 +5367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c2a2d854dca3c4e926aa04e78d08f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonIsDown: 0
+  itemData: {fileID: 0}
 --- !u!65 &6119230286943313354
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5726,7 +5713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c2a2d854dca3c4e926aa04e78d08f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonIsDown: 0
+  itemData: {fileID: 0}
 --- !u!114 &6671090986708048662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6133,6 +6120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 3339444662546616314}
   _cursorManager: {fileID: 5232547494444654693}
+  fixedHoldDuration: 1
 --- !u!23 &7333057364111633227
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6765,8 +6753,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -5.199999, y: -5.1999993}
+  m_AnchoredPosition: {x: 0, y: 2.91}
+  m_SizeDelta: {x: -5.2, y: -0.05}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8597043128794267932
 MonoBehaviour:
