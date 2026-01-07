@@ -57,10 +57,12 @@ public class CursorManager : MonoBehaviour
     public void EquipItem(ShopItem item)
     {
         currentBehavior = item._behaviour;
+        isEquipped = true;
     }
     
     public void UnequipCurrentItem()
     {
         currentBehavior = null;
+        isEquipped = false;
     }
 }

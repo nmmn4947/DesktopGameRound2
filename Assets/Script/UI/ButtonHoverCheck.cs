@@ -5,18 +5,19 @@ using UnityEngine.EventSystems;
 public class ButtonHoverCheck : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private ShopItem itemData;
+    public ShopItem GetItemData(){ return itemData; }
     
     public bool IsHovering { get; private set; }
     public bool buttonIsDown { get; private set; }
-
     private RectTransform rectTransform;
-    
+    private CursorManager cursorManager;
     
     // Should I get CursorManager to check isEquipped?
     
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
+        cursorManager = CursorManager.GetInstance();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -61,6 +62,11 @@ public class ButtonHoverCheck : MonoBehaviour, IPointerEnterHandler, IPointerExi
         {
             ToolButtonVisual.GetInstance().StopHoldSelect();
             return;
+        }
+        
+        if (!cursorManager.isEquipped)
+        {
+            cursorManager.EquipItem(itemData);
         }
     }
 }

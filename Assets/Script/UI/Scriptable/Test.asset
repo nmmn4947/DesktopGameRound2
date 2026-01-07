@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Test
   m_EditorClassIdentifier: 
   displayName: Test
+  shopIcon: {fileID: 21300000, guid: 9d87e2b236fd89e44927f136f1ef74b1, type: 3}
   isTool: 0
   updateCost: 0
-  cost: 0
+  cost: 10
   behaviour: {fileID: 11400000, guid: e9ff88e118aa5e34994d3ef67b859e4b, type: 2}
+  isUnlockedInShop: 0

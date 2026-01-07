@@ -18,7 +18,7 @@ public class ToolButtonVisual : MonoBehaviour
     
     private RectTransform thisRectTransform;
     private bool isHovering = false;
-    
+    private ShopItem currentButtonItem;
     private Slider holdSlider;
     private bool isHolding = false;
     private float holdSelectTime = 0.0f;
@@ -73,6 +73,11 @@ public class ToolButtonVisual : MonoBehaviour
         {
             return;
         }
+
+        if (isHolding)
+        {
+            return;
+        }
         
         if (rectTransform == null)
         {
@@ -81,6 +86,7 @@ public class ToolButtonVisual : MonoBehaviour
         }
         isHovering = true;
         thisRectTransform.position = rectTransform.position;
+        currentButtonItem = rectTransform.gameObject.GetComponent<ButtonHoverCheck>().GetItemData();
         
     }
     
@@ -99,6 +105,25 @@ public class ToolButtonVisual : MonoBehaviour
 
     public void StopHoldSelect()
     {
+        if (!currentButtonItem.isUnlockedInShop)
+        {
+            if (holdSlider.value >= 0.999f)
+            {
+                /*if ()     ////////// COST ENOUGH? IF ENOUGH CAN BUY, IF NOT CAN'T UNLOCKED
+                {
+                    
+                }*/
+                currentButtonItem.isUnlockedInShop = true;
+                
+            }
+        }
+        else
+        {
+            if (holdSlider.value >= 0.999f)
+            {
+                _cursorManager.EquipItem(currentButtonItem);
+            }
+        }
         isHolding = false;
         holdSelectKeep = 0.0f;
         holdSelectTime = 0.0f;
